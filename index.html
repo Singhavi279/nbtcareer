@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Times Career Counselling Meetups 2026</title>
+  <meta name="description" content="Register for Times Career Counselling Meetups 2026 and get expert guidance on careers, colleges, courses, and next steps.">
+  
+  <!-- Font Integration -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-mode">
+  
+  <!-- Site Header -->
+  <header class="site-header glass-nav">
+    <div class="container header-inner">
+      <a class="brand" href="#hero" aria-label="Times Career Counselling">
+        <span class="brand-text">Times Career Counselling</span>
+      </a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="#about">Why Attend</a>
+        <a href="#tracks">Tracks</a>
+        <a href="#process">Agenda</a>
+        <a href="#faq">FAQs</a>
+      </nav>
+      <a class="button button-primary header-cta js-scroll-form" href="#register">Register Now</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-split section" id="hero">
+      <div class="hero-bg">
+        <img src="assets/hero-bg.png" alt="Students and professionals exploring career choices">
+      </div>
+      
+      <div class="container hero-content">
+        <div class="hero-copy slide-up">
+          <p class="eyebrow">Times Career Counselling 2026</p>
+          <h1>Stop Guessing Your Future. Start Choosing It.</h1>
+          <p class="hero-subheadline">
+            Meet expert career counsellors, explore real education options, and make confident
+            decisions—all in one premium, trusted space structured for clarity.
+          </p>
+          
+          <div class="trust-strip">
+            <p>Powered by <strong>The Times</strong> | Trusted by thousands of families across India</p>
+          </div>
+        </div>
+
+        <div class="hero-card-wrapper slide-up delay-1">
+          <aside class="glass-card hero-register-card" id="register">
+            <div class="card-header">
+              <h2>Secure Your Free Pass</h2>
+              <p>Limited seats per city. Enter your details to continue.</p>
+            </div>
+            
+            <form id="heroRegistrationForm" class="flat-flow-form" novalidate>
+              
+              <!-- State 1: Mobile Number -->
+              <div class="form-view active-view" id="view-mobile">
+                <div class="form-group">
+                  <label for="reg-phone">Mobile Number</label>
+                  <input type="tel" id="reg-phone" placeholder="Enter 10-digit number" required pattern="[0-9]{10}">
+                  <span class="error-msg">Please enter a valid 10-digit number.</span>
+                </div>
+                <button type="button" class="button button-primary button-block" id="btn-send-otp">Continue</button>
+              </div>
+
+              <!-- State 2: OTP -->
+              <div class="form-view" id="view-otp">
+                <div class="form-group">
+                  <label for="reg-otp">Enter OTP</label>
+                  <p class="meta-label">OTP sent to <span id="display-phone"></span> <a href="#" id="edit-phone">Edit</a></p>
+                  <input type="text" id="reg-otp" placeholder="4-digit code" required pattern="[0-9]{4}">
+                  <span class="error-msg">Invalid OTP. Enter 1234.</span>
+                </div>
+                <button type="button" class="button button-primary button-block" id="btn-verify-otp">Verify & Proceed</button>
+              </div>
+
+              <!-- State 3: Full Details -->
+              <div class="form-view" id="view-details">
+                <div class="form-group">
+                  <label for="reg-name">Full Name</label>
+                  <input type="text" id="reg-name" placeholder="E.g., Anjali Sharma" required>
+                </div>
+                <div class="form-group">
+                  <label for="reg-city">Select City</label>
+                  <select id="reg-city" required>
+                    <option value="">Choose your city</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Pune">Pune</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="reg-type">I am a...</label>
+                  <select id="reg-type" required>
+                    <option value="">Select profile</option>
+                    <option value="Student (Class 12)">Student (Class 12)</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Parent">Parent</option>
+                  </select>
+                </div>
+                <button type="submit" class="button button-primary button-block" id="btn-submit">Complete Registration</button>
+              </div>
+              
+              <!-- State 4: Success -->
+              <div class="form-view text-center" id="view-success">
+                <div class="success-icon">✓</div>
+                <h3>Registration Complete!</h3>
+                <p>We've sent your entry pass on WhatsApp.</p>
+              </div>
+
+            </form>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Grid Section -->
+    <section class="section about-section reveal-on-scroll" id="about">
+      <div class="container">
+        <div class="section-heading text-center">
+          <p class="eyebrow">The Experience</p>
+          <h2>A different kind of education event</h2>
+        </div>
+        
+        <div class="bento-grid">
+          <article class="bento-item span-2 light-glass">
+            <span class="overline-badge">💡 Core Philosophy</span>
+            <h3>Expert-Led Guidance</h3>
+            <p>Real counsellors providing actionable, unbiased advice. We replace guesswork with structured matrices to help you discover the exact trajectory suited for your skills and aspirations.</p>
+          </article>
+          <article class="bento-item light-glass">
+            <span class="overline-badge">🎯 Focus</span>
+            <h3>High-Intent Audience</h3>
+            <p>Designed for students and parents who are tired of basic brochures and are ready to make a final decision.</p>
+          </article>
+          <article class="bento-item light-glass">
+            <span class="overline-badge">📐 Structure</span>
+            <h3>Curated Flow</h3>
+            <p>Not a chaotic expo hall. Expect guided sessions, focused breakouts, and private one-on-ones.</p>
+          </article>
+          <article class="bento-item span-2 light-glass bento-visual-card">
+            <!-- Visual placeholder or soft gradient -->
+            <div class="bento-content">
+              <h3>Take Control of Your Trajectory</h3>
+              <p>Walk out with a clear roadmap, shortlisted colleges, and absolute confidence in your next step.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- High-Contrast Comparison Layout -->
+    <section class="section tracks-section reveal-on-scroll" id="tracks">
+      <div class="container">
+        <div class="section-heading text-center">
+          <p class="eyebrow">Who Should Attend</p>
+          <h2>Tailored paths for your specific needs</h2>
+        </div>
+
+        <div class="comparison-grid">
+          <!-- Card A: Light Glass -->
+          <article class="light-glass comparison-card">
+            <div class="card-header">
+              <span class="overline-badge light">Track A</span>
+              <h3>Class 12 Students & Parents</h3>
+              <p>Laying the foundation for higher education and stream specialization.</p>
+            </div>
+            <ul class="custom-list green-checks">
+              <li>Stream selection mechanics (Science vs Commerce vs Humanities)</li>
+              <li>College admissions, cut-offs & entrance pathways</li>
+              <li>Aligning degrees with future technological shifts</li>
+              <li>Navigating the anxiety of choices together as a family</li>
+            </ul>
+          </article>
+
+          <!-- Card B: Dark Glass -->
+          <article class="dark-glass comparison-card">
+            <div class="card-header">
+              <span class="overline-badge dark">Track B</span>
+              <h3>Graduating Youth & Masters</h3>
+              <p>Accelerating careers, pivoting fields, and evaluating advanced degrees.</p>
+            </div>
+            <ul class="custom-list tag-list">
+              <li><span class="pill-tag panel-tag">Panel:</span> MBA vs Masters vs Direct Placement</li>
+              <li><span class="pill-tag workshop-tag">Workshop:</span> Profile Building & Resume Rescues</li>
+              <li><span class="pill-tag session-tag">1-on-1:</span> ROI calculation on abroad education</li>
+              <li><span class="pill-tag panel-tag">Panel:</span> Future-proofing against AI automation</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process / Agenda (High Contrast) -->
+    <section class="section process-section reveal-on-scroll" id="process">
+      <div class="container">
+        <div class="comparison-grid">
+          <article class="light-glass comparison-card">
+            <span class="overline-badge light">💡 Core Outcomes</span>
+            <h3>What You Walk Away With</h3>
+            <ul class="custom-list green-checks large">
+              <li>Absolute clarity on your chosen career path</li>
+              <li>A vetted shortlist of top-tier courses & colleges</li>
+              <li>Direct answers to your most pressing questions</li>
+              <li>Confidence to lock in your next step</li>
+            </ul>
+          </article>
+
+          <article class="dark-glass comparison-card">
+            <span class="overline-badge dark">📅 Agenda Flow</span>
+            <h3>The 3-Step Masterclass Journey</h3>
+            <ul class="custom-list tag-list large">
+              <li><span class="pill-tag step-tag">Step 1:</span> Mainstage insights from industry leaders</li>
+              <li><span class="pill-tag step-tag">Step 2:</span> Breakout interactive assessment zones</li>
+              <li><span class="pill-tag step-tag">Step 3:</span> Private 1-on-1 expert consultation ($300 value, free)</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- B2B Segregation: Dark Glass Container -->
+    <section class="section partner-section dark-glass-container reveal-on-scroll" id="partners">
+      <div class="container partner-layout">
+        <div class="partner-copy">
+          <span class="overline-badge dark">Enterprise & Institutions</span>
+          <h2>A highly qualified audience awaits.</h2>
+          <p class="partner-subtext">
+            Times Career Counselling isn't about blind footfall. It's about bringing together the most intent-driven students and parents in the country, right at the precipice of their decisions.
+          </p>
+          <ul class="custom-list check-list-dark">
+            <li>Direct access to decision-stage families</li>
+            <li>Premium, low-noise environment</li>
+            <li>Structured, high-conversion engagements</li>
+          </ul>
+          <div class="partner-cta">
+            <a href="mailto:partner@timescounselling.com" class="button button-primary">Become a Partner</a>
+          </div>
+        </div>
+        <div class="partner-visual">
+          <!-- Glossy dark aesthetic placeholder -->
+          <div class="glossy-orb"></div>
+          <div class="partner-stats">
+            <div class="stat-box light-glass">
+              <h4>12,000+</h4>
+              <p>Expected Attendees</p>
+            </div>
+            <div class="stat-box light-glass">
+              <h4>7</h4>
+              <p>Tier-1 Cities</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs Interactive Elements -->
+    <section class="section faq-section reveal-on-scroll" id="faq">
+      <div class="container section-narrow">
+        <div class="section-heading text-center">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        
+        <div class="faq-accordion">
+          <details class="glass-accordion" name="faq">
+            <summary>Is the event completely free?</summary>
+            <div class="accordion-content">
+              <p>Yes, general admission is free. However, given the premium nature and limited capacity of our venues, pre-registration is mandatory. Some specialized 1-on-1 consultations may have an optional premium booking fee.</p>
+            </div>
+          </details>
+
+          <details class="glass-accordion" name="faq">
+            <summary>Should parents attend with the student?</summary>
+            <div class="accordion-content">
+              <p>Absolutely. Career decisions are family decisions. We highly encourage parents to attend the mainstage sessions and participate in the guidance process.</p>
+            </div>
+          </details>
+
+          <details class="glass-accordion" name="faq">
+            <summary>How long will the entire experience take?</summary>
+            <div class="accordion-content">
+              <p>We recommend setting aside 2.5 to 3 hours to fully benefit from the keynote, breakout sessions, and institution interactions.</p>
+            </div>
+          </details>
+          
+          <details class="glass-accordion" name="faq">
+            <summary>Will I receive a confirmed pass?</summary>
+            <div class="accordion-content">
+              <p>Yes, once your registration is complete and your mobile number is verified via OTP, you will instantly receive your digital entry pass on WhatsApp.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container text-center">
+      <h2>The Future Demands Clarity.</h2>
+      <a class="button button-primary header-cta js-scroll-form" href="#register">Claim Your Spot Now</a>
+      <p class="footer-legal">© 2026 Times Career Counselling. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Sticky Mobile CTA -->
+  <div class="mobile-sticky-cta">
+    <a href="#register" class="button button-primary button-block">Register Free</a>
+  </div>
+
+  <!-- Exit Intent Popup -->
+  <div class="exit-intent-overlay " id="exitPopup">
+    <div class="glass-card exit-popup-card">
+      <button class="close-popup" aria-label="Close popup">&times;</button>
+      <h2>Leaving so soon?</h2>
+      <p>Secure your spot before seats fill up in your city. It only takes a minute.</p>
+      <a href="#register" class="button button-primary button-block js-close-popup">Register Now</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
