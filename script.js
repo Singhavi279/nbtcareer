@@ -158,4 +158,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* ========================================================
+     5. Form Conditional Fields
+     ======================================================== */
+  const regType = document.getElementById('reg-type');
+  const studentFields = document.getElementById('student-fields');
+  const graduateFields = document.getElementById('graduate-fields');
+
+  if (regType) {
+    regType.addEventListener('change', (e) => {
+      const val = e.target.value;
+      if (val === 'student') {
+        studentFields.style.display = 'block';
+        graduateFields.style.display = 'none';
+      } else if (val === 'graduate') {
+        studentFields.style.display = 'none';
+        graduateFields.style.display = 'block';
+      } else {
+        studentFields.style.display = 'none';
+        graduateFields.style.display = 'none';
+      }
+    });
+  }
+
 });

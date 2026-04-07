@@ -55,8 +55,8 @@
         <div class="hero-card-wrapper slide-up delay-1">
           <aside class="glass-card hero-register-card" id="register">
             <div class="card-header">
-              <h2>Secure Your Free Pass</h2>
-              <p>Limited seats per city. Enter your details to continue.</p>
+              <h2>Reserve Your 15-Min Slot</h2>
+              <p>Limited seats per city. INR 399 registration fee.</p>
             </div>
             
             <form id="heroRegistrationForm" class="flat-flow-form" novalidate>
@@ -89,25 +89,70 @@
                   <input type="text" id="reg-name" placeholder="E.g., Anjali Sharma" required>
                 </div>
                 <div class="form-group">
-                  <label for="reg-city">Select City</label>
-                  <select id="reg-city" required>
-                    <option value="">Choose your city</option>
-                    <option value="Delhi">Delhi</option>
-                    <option value="Mumbai">Mumbai</option>
-                    <option value="Bangalore">Bangalore</option>
-                    <option value="Pune">Pune</option>
-                  </select>
+                  <label for="reg-email">Email Address</label>
+                  <input type="email" id="reg-email" placeholder="E.g., anjali@example.com" required>
                 </div>
+                
                 <div class="form-group">
                   <label for="reg-type">I am a...</label>
                   <select id="reg-type" required>
                     <option value="">Select profile</option>
-                    <option value="Student (Class 12)">Student (Class 12)</option>
-                    <option value="Graduate">Graduate</option>
-                    <option value="Parent">Parent</option>
+                    <option value="student">Student (Class 12)</option>
+                    <option value="graduate">Graduating Youth</option>
                   </select>
                 </div>
-                <button type="submit" class="button button-primary button-block" id="btn-submit">Complete Registration</button>
+
+                <!-- Conditional Fields -> Student -->
+                <div id="student-fields" style="display: none;">
+                  <div class="form-group">
+                    <label for="reg-school">School Name</label>
+                    <input type="text" id="reg-school" placeholder="Enter school name">
+                  </div>
+                  <div class="form-group">
+                    <label for="reg-stream">Stream</label>
+                    <select id="reg-stream">
+                      <option value="">Select Stream</option>
+                      <option value="Science">Science</option>
+                      <option value="Commerce">Commerce</option>
+                      <option value="Humanities">Humanities</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="reg-pass-year">Passing Year</label>
+                    <input type="number" id="reg-pass-year" placeholder="E.g., 2026">
+                  </div>
+                </div>
+
+                <!-- Conditional Fields -> Graduate -->
+                <div id="graduate-fields" style="display: none;">
+                  <div class="form-group">
+                    <label for="reg-institute">Institute Name</label>
+                    <input type="text" id="reg-institute" placeholder="Enter institute name">
+                  </div>
+                  <div class="form-group">
+                    <label for="reg-domain">Domain</label>
+                    <input type="text" id="reg-domain" placeholder="E.g., Engineering, Arts">
+                  </div>
+                  <div class="form-group">
+                    <label for="reg-grad-year">Graduation Year</label>
+                    <input type="number" id="reg-grad-year" placeholder="E.g., 2025">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="reg-city">Current City</label>
+                  <select id="reg-city" required>
+                    <option value="">Choose your city</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Jaipur">Jaipur</option>
+                    <option value="Bhopal">Bhopal</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Patna">Patna</option>
+                    <option value="Lucknow">Lucknow</option>
+                  </select>
+                </div>
+                <button type="submit" class="button button-primary button-block" id="btn-submit">Pay INR 399 & Register</button>
               </div>
               
               <!-- State 4: Success -->
@@ -133,19 +178,19 @@
         
         <div class="bento-grid">
           <article class="bento-item span-2 light-glass">
-            <span class="overline-badge">💡 Core Philosophy</span>
-            <h3>Expert-Led Guidance</h3>
-            <p>Real counsellors providing actionable, unbiased advice. We replace guesswork with structured matrices to help you discover the exact trajectory suited for your skills and aspirations.</p>
+            <span class="overline-badge">📅 Event Schedule</span>
+            <h3>9th May &ndash; 15th Aug</h3>
+            <p>Every weekend (Saturday & Sunday) from <strong>09:00 AM to 05:00 PM</strong>. Join us in Delhi, Jaipur, Bhopal, Mumbai, Pune, Patna, or Lucknow.</p>
           </article>
           <article class="bento-item light-glass">
-            <span class="overline-badge">🎯 Focus</span>
-            <h3>High-Intent Audience</h3>
-            <p>Designed for students and parents who are tired of basic brochures and are ready to make a final decision.</p>
+            <span class="overline-badge">🎯 Format</span>
+            <h3>Private Cabins</h3>
+            <p>Focused 15-minute 1-on-1 career counselling sessions hosted in private cabins.</p>
           </article>
           <article class="bento-item light-glass">
-            <span class="overline-badge">📐 Structure</span>
-            <h3>Curated Flow</h3>
-            <p>Not a chaotic expo hall. Expect guided sessions, focused breakouts, and private one-on-ones.</p>
+            <span class="overline-badge">🏢 Exhibition</span>
+            <h3>College Booths</h3>
+            <p>Explore sponsored booths from top institutions just outside the counselling cabins.</p>
           </article>
           <article class="bento-item span-2 light-glass bento-visual-card">
             <!-- Visual placeholder or soft gradient -->
@@ -186,7 +231,7 @@
           <article class="dark-glass comparison-card">
             <div class="card-header">
               <span class="overline-badge dark">Track B</span>
-              <h3>Graduating Youth & Masters</h3>
+              <h3>Graduating Youth</h3>
               <p>Accelerating careers, pivoting fields, and evaluating advanced degrees.</p>
             </div>
             <ul class="custom-list tag-list">
@@ -220,8 +265,8 @@
             <h3>The 3-Step Masterclass Journey</h3>
             <ul class="custom-list tag-list large">
               <li><span class="pill-tag step-tag">Step 1:</span> Mainstage insights from industry leaders</li>
-              <li><span class="pill-tag step-tag">Step 2:</span> Breakout interactive assessment zones</li>
-              <li><span class="pill-tag step-tag">Step 3:</span> Private 1-on-1 expert consultation ($300 value, free)</li>
+              <li><span class="pill-tag step-tag">Step 2:</span> Breakout interactive assessment zones & college booths</li>
+              <li><span class="pill-tag step-tag">Step 3:</span> Private 15-minute expert consultation in a dedicated cabin</li>
             </ul>
           </article>
         </div>
@@ -272,9 +317,9 @@
         
         <div class="faq-accordion">
           <details class="glass-accordion" name="faq">
-            <summary>Is the event completely free?</summary>
+            <summary>What is the cost of attending?</summary>
             <div class="accordion-content">
-              <p>Yes, general admission is free. However, given the premium nature and limited capacity of our venues, pre-registration is mandatory. Some specialized 1-on-1 consultations may have an optional premium booking fee.</p>
+              <p>The registration fee is INR 399, which secures your dedicated 15-minute 1-on-1 counselling session in a private cabin as well as access to the college exhibition booths.</p>
             </div>
           </details>
 
