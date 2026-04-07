@@ -181,4 +181,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ========================================================
+     6. Sticky CTA on Scroll
+     ======================================================== */
+  const stickyCta = document.getElementById('sticky-cta');
+  if (stickyCta) {
+    window.addEventListener('scroll', () => {
+      // Show when scrolled past hero section (~400px)
+      if (window.scrollY > 400) {
+        stickyCta.classList.add('show');
+      } else {
+        stickyCta.classList.remove('show');
+      }
+    });
+  }
+
 });
