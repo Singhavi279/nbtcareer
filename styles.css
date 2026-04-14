@@ -805,4 +805,70 @@ p {
     padding: 4rem 0;
   }
   h1 { font-size: 2.2rem; }
+  .tracks-tag-grid { grid-template-columns: 1fr 1fr; }
+  .who-join-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Section Subtext --- */
+.section-subtext {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0.5rem auto 0;
+}
+
+/* --- Conversation Tracks Grid --- */
+.tracks-tag-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.track-pill {
+  background: var(--color-light-glass);
+  border: var(--border-light-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.track-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(0, 85, 255, 0.3);
+}
+
+/* --- Who Should Join Grid --- */
+.who-join-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.who-item {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-main);
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: var(--transition-smooth);
+}
+
+.who-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
