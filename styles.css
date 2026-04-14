@@ -775,6 +775,18 @@ p {
   .bento-item.span-2 {
     grid-column: span 1;
   }
+  .tracks-tag-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .who-join-grid {
+    grid-template-columns: 1fr;
+  }
+  .track-pill {
+    white-space: normal;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    height: auto;
+  }
 }
 
 @media (max-width: 768px) {
@@ -805,8 +817,12 @@ p {
     padding: 4rem 0;
   }
   h1 { font-size: 2.2rem; }
-  .tracks-tag-grid { grid-template-columns: 1fr 1fr; }
-  .who-join-grid { grid-template-columns: 1fr; }
+  .tracks-tag-grid { 
+    grid-template-columns: 1fr; 
+  }
+  .who-join-grid { 
+    grid-template-columns: 1fr; 
+  }
 }
 
 /* --- Section Subtext --- */
