@@ -18,6 +18,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revealElements.forEach(el => revealObserver.observe(el));
 
+  const countUpElements = document.querySelectorAll('.js-count-up');
+
+  const animateCount = (element) => {
+    const target = Number(element.dataset.target || 0);
+    const suffix = element.dataset.suffix || '';
+    const duration = 1400;
+    const startTime = performance.now();
+
+    const step = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(target * eased);
+      element.textContent = `${value}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        element.textContent = `${target}${suffix}`;
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  const counterObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.45
+  });
+
+  countUpElements.forEach(el => counterObserver.observe(el));
+
   /* ========================================================
      2. Smooth Scrolling for Anchor Links
      ======================================================== */
@@ -143,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   closePopupBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      // If it's the anchor button, smooth scroll handles the rest, just close popup
       if(btn.tagName !== 'A') {
         e.preventDefault();
       }
@@ -195,5 +231,121 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      exitPopup.classList.remove('show');
+      partnerModal.classList.remove('show');
+      document.body.classList.remove('modal-open');
+    }
+  });
+
+  /* ========================================================
+     7. Partner Modal
+     ======================================================== */
+  const partnerModal = document.getElementById('partnerModal');
+  const partnerModalClose = document.getElementById('partnerModalClose');
+  const partnerForm = document.getElementById('partnerForm');
+
+  const pViewPhone   = document.getElementById('p-view-phone');
+  const pViewOtp     = document.getElementById('p-view-otp');
+  const pViewDetails = document.getElementById('p-view-details');
+  const pViewSuccess = document.getElementById('p-view-success');
+
+  const pPhone       = document.getElementById('p-phone');
+  const pOtp         = document.getElementById('p-otp');
+  const pDisplayPhone = document.getElementById('p-display-phone');
+  const pEditPhone   = document.getElementById('p-edit-phone');
+  const pName        = document.getElementById('p-name');
+  const pEmail       = document.getElementById('p-email');
+  const pDesignation = document.getElementById('p-designation');
+  const pCompany     = document.getElementById('p-company');
+
+  const pBtnSendOtp   = document.getElementById('p-btn-send-otp');
+  const pBtnVerifyOtp = document.getElementById('p-btn-verify-otp');
+
+  const pSwitchView = (from, to) => {
+    from.classList.remove('active-view');
+    to.classList.add('active-view');
+  };
+
+  const openPartnerModal = (e) => {
+    if (e) e.preventDefault();
+    // Reset to first step each time
+    [pViewOtp, pViewDetails, pViewSuccess].forEach(v => v.classList.remove('active-view'));
+    pViewPhone.classList.add('active-view');
+    partnerForm.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
+    partnerForm.querySelectorAll('input, textarea').forEach(i => i.value = '');
+    partnerModal.classList.add('show');
+    document.body.classList.add('modal-open');
+    pPhone.focus();
+  };
+
+  const closePartnerModal = () => {
+    partnerModal.classList.remove('show');
+    document.body.classList.remove('modal-open');
+  };
+
+  // Wire all partner CTA triggers
+  document.querySelectorAll('.js-open-partner-modal').forEach(el => {
+    el.addEventListener('click', openPartnerModal);
+  });
+
+  partnerModalClose.addEventListener('click', closePartnerModal);
+
+  partnerModal.addEventListener('click', (e) => {
+    if (e.target === partnerModal) closePartnerModal();
+  });
+
+  // Step 1: Send OTP
+  pBtnSendOtp.addEventListener('click', () => {
+    const val = pPhone.value.trim();
+    const grp = pPhone.closest('.form-group');
+    if (!/^[0-9]{10}$/.test(val)) { grp.classList.add('has-error'); return; }
+    grp.classList.remove('has-error');
+    pDisplayPhone.textContent = '+91 ' + val;
+    pSwitchView(pViewPhone, pViewOtp);
+    pOtp.focus();
+  });
+
+  // Edit phone
+  pEditPhone.addEventListener('click', (e) => {
+    e.preventDefault();
+    pSwitchView(pViewOtp, pViewPhone);
+    pPhone.focus();
+  });
+
+  // Step 2: Verify OTP
+  pBtnVerifyOtp.addEventListener('click', () => {
+    const val = pOtp.value.trim();
+    const grp = pOtp.closest('.form-group');
+    if (!/^[0-9]{4}$/.test(val)) { grp.classList.add('has-error'); return; }
+    grp.classList.remove('has-error');
+    pSwitchView(pViewOtp, pViewDetails);
+    pName.focus();
+  });
+
+  // Step 3: Submit details
+  partnerForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    [[pName, v => v.length > 0],
+     [pEmail, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
+     [pDesignation, v => v.length > 0],
+     [pCompany, v => v.length > 0]
+    ].forEach(([input, test]) => {
+      const grp = input.closest('.form-group');
+      if (!test(input.value.trim())) {
+        grp.classList.add('has-error');
+        valid = false;
+      } else {
+        grp.classList.remove('has-error');
+      }
+    });
+
+    if (!valid) return;
+    pSwitchView(pViewDetails, pViewSuccess);
+  });
 
 });
