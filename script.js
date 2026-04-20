@@ -59,24 +59,24 @@ document.addEventListener('DOMContentLoaded', () => {
      2. Smooth Scrolling for Anchor Links
      ======================================================== */
   const scrollLinks = document.querySelectorAll('a[href^="#"]');
-  
+
   scrollLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
-      
+
       // If it's just "#", ignore
       if (targetId === '#') return;
-      
+
       const targetElement = document.querySelector(targetId);
-      
+
       if (targetElement) {
         e.preventDefault();
-        
+
         // Offset for the fixed glass nav
         const headerOffset = 80;
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-  
+
         window.scrollTo({
           top: offsetPosition,
           behavior: "smooth"
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputPhone = document.getElementById('reg-phone');
   const inputOtp = document.getElementById('reg-otp');
   const displayPhone = document.getElementById('display-phone');
-  
+
   const btnSendOtp = document.getElementById('btn-send-otp');
   const btnVerifyOtp = document.getElementById('btn-verify-otp');
   const btnEditPhone = document.getElementById('edit-phone');
@@ -148,11 +148,163 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    const checkedPass = document.querySelector('input[name="pass_type"]:checked');
+    const isPaid = checkedPass && checkedPass.value === 'paid';
     
+    if (isPaid) {
+      const termsCheckbox = document.getElementById('reg-terms-checkbox');
+      if (termsCheckbox && !termsCheckbox.checked) {
+        alert("Please acknowledge the booking terms & conditions to proceed.");
+        return;
+      }
+    }
+
+    const successMessageEl = document.getElementById('success-pass-message');
+    if (successMessageEl) {
+      if (isPaid) {
+        successMessageEl.textContent = 'We will send your entry pass via email and WhatsApp shortly.';
+      } else {
+        successMessageEl.textContent = 'We will send your entry pass via email shortly.';
+      }
+    }
+
     // Minimal HTML5 validness check done by browser form if submit event fires,
     // assuming valid. Let's move to success view.
     switchView(viewDetails, viewSuccess);
+
+    // Clear local storage upon successful submission
+    localStorage.removeItem('nbtCareerFormState');
   });
+
+  // --- Live Activity Alert Logic (Marquee) ---
+  const marqueeEl = document.getElementById('dynamic-marquee-text');
+  const activityIcon = document.querySelector('.live-activity-icon');
+
+  if (marqueeEl) {
+    let currentViewers = 50;
+    marqueeEl.textContent = `${currentViewers} people are filling this form right now`;
+
+    marqueeEl.addEventListener('animationiteration', () => {
+      if (currentViewers < 150) {
+        const pace = Math.floor(Math.random() * (7 - 3 + 1)) + 3;
+        currentViewers = Math.min(150, currentViewers + pace);
+      } else {
+        const drift = Math.floor(Math.random() * 11) - 5;
+        currentViewers = Math.max(140, Math.min(150, currentViewers + drift));
+      }
+      marqueeEl.textContent = `${currentViewers} people are filling this form right now`;
+      if (activityIcon) activityIcon.textContent = '🔥';
+    });
+  }
+
+  // --- Pass Selection & Persistence Logic ---
+  const btnSubmitFinal = document.getElementById('btn-submit');
+  const passRadios = document.querySelectorAll('input[name="pass_type"]');
+  const termsWrapper = document.getElementById('terms-acknowledgement-wrapper');
+  const termsCheckbox = document.getElementById('reg-terms-checkbox');
+  const termsAccordion = document.getElementById('terms-accordion-content');
+  const toggleTermsLink = document.getElementById('toggle-terms-details');
+  const timeSlotGroup = document.getElementById('time-slot-group');
+  const regTimeSlot = document.getElementById('reg-time-slot');
+
+  const updatePassUI = (isPaid) => {
+    if (isPaid) {
+      btnSubmitFinal.textContent = 'Pay INR 399 & Register';
+      if (termsWrapper) termsWrapper.style.display = 'block';
+      if (termsCheckbox) termsCheckbox.required = true;
+      if (timeSlotGroup) timeSlotGroup.style.display = 'block';
+      if (regTimeSlot) regTimeSlot.required = true;
+    } else {
+      btnSubmitFinal.textContent = 'Get Free Visitor Pass';
+      if (termsWrapper) termsWrapper.style.display = 'none';
+      if (termsCheckbox) {
+        termsCheckbox.required = false;
+        termsCheckbox.checked = false;
+        if (termsAccordion) termsAccordion.style.display = 'none';
+      }
+      if (timeSlotGroup) timeSlotGroup.style.display = 'none';
+      if (regTimeSlot) {
+        regTimeSlot.required = false;
+      }
+    }
+  };
+
+  passRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      updatePassUI(e.target.value === 'paid');
+    });
+  });
+
+  if (termsCheckbox && termsAccordion) {
+    termsCheckbox.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        termsAccordion.style.display = 'block';
+      } else {
+        termsAccordion.style.display = 'none';
+      }
+    });
+  }
+
+  if (toggleTermsLink && termsCheckbox) {
+    toggleTermsLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      termsCheckbox.checked = !termsCheckbox.checked;
+      termsCheckbox.dispatchEvent(new Event('change'));
+    });
+  }
+
+  const saveFormState = () => {
+    const dataObj = {};
+    const fieldsToSave = [
+      'reg-phone', 'reg-name', 'reg-email', 'reg-type', 'reg-school',
+      'reg-stream', 'reg-pass-year', 'reg-institute', 'reg-domain',
+      'reg-grad-year', 'reg-city', 'reg-time-slot'
+    ];
+    fieldsToSave.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) dataObj[id] = el.value;
+    });
+
+    const checkedPass = document.querySelector('input[name="pass_type"]:checked');
+    if (checkedPass) {
+      dataObj['pass_type'] = checkedPass.value;
+    }
+
+    localStorage.setItem('nbtCareerFormState', JSON.stringify(dataObj));
+  };
+
+  const loadFormState = () => {
+    const saved = localStorage.getItem('nbtCareerFormState');
+    if (saved) {
+      try {
+        const dataObj = JSON.parse(saved);
+        Object.keys(dataObj).forEach(key => {
+          if (key === 'pass_type') {
+            const matchingRadio = document.querySelector(`input[name="pass_type"][value="${dataObj[key]}"]`);
+            if (matchingRadio) {
+              matchingRadio.checked = true;
+              matchingRadio.dispatchEvent(new Event('change'));
+            }
+          } else {
+            const el = document.getElementById(key);
+            if (el) {
+              el.value = dataObj[key];
+              el.dispatchEvent(new Event('change'));
+            }
+          }
+        });
+      } catch (e) {
+        console.error('Error loading form state', e);
+      }
+    }
+  };
+
+  form.addEventListener('input', saveFormState);
+  form.addEventListener('change', saveFormState);
+
+  // Initialize state from local storage
+  loadFormState();
 
 
   /* ========================================================
@@ -180,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   closePopupBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      if(btn.tagName !== 'A') {
+      if (btn.tagName !== 'A') {
         e.preventDefault();
       }
       exitPopup.classList.remove('show');
@@ -247,21 +399,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const partnerModalClose = document.getElementById('partnerModalClose');
   const partnerForm = document.getElementById('partnerForm');
 
-  const pViewPhone   = document.getElementById('p-view-phone');
-  const pViewOtp     = document.getElementById('p-view-otp');
+  const pViewPhone = document.getElementById('p-view-phone');
+  const pViewOtp = document.getElementById('p-view-otp');
   const pViewDetails = document.getElementById('p-view-details');
   const pViewSuccess = document.getElementById('p-view-success');
 
-  const pPhone       = document.getElementById('p-phone');
-  const pOtp         = document.getElementById('p-otp');
+  const pPhone = document.getElementById('p-phone');
+  const pOtp = document.getElementById('p-otp');
   const pDisplayPhone = document.getElementById('p-display-phone');
-  const pEditPhone   = document.getElementById('p-edit-phone');
-  const pName        = document.getElementById('p-name');
-  const pEmail       = document.getElementById('p-email');
+  const pEditPhone = document.getElementById('p-edit-phone');
+  const pName = document.getElementById('p-name');
+  const pEmail = document.getElementById('p-email');
   const pDesignation = document.getElementById('p-designation');
-  const pCompany     = document.getElementById('p-company');
+  const pCompany = document.getElementById('p-company');
 
-  const pBtnSendOtp   = document.getElementById('p-btn-send-otp');
+  const pBtnSendOtp = document.getElementById('p-btn-send-otp');
   const pBtnVerifyOtp = document.getElementById('p-btn-verify-otp');
 
   const pSwitchView = (from, to) => {
@@ -331,9 +483,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let valid = true;
 
     [[pName, v => v.length > 0],
-     [pEmail, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
-     [pDesignation, v => v.length > 0],
-     [pCompany, v => v.length > 0]
+    [pEmail, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
+    [pDesignation, v => v.length > 0],
+    [pCompany, v => v.length > 0]
     ].forEach(([input, test]) => {
       const grp = input.closest('.form-group');
       if (!test(input.value.trim())) {

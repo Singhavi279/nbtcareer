@@ -28,16 +28,16 @@
       </a>
       <nav class="main-nav" aria-label="Primary">
         <a href="#event-snapshot">Overview</a>
+        <a href="#register">Why Attend</a>
         <a href="#tracks">Key Themes</a>
         <a href="#who">Who's It For</a>
-        <a href="#process">Why It Matters</a>
         <a href="#partners">Why Partner</a>
         <a href="#faq">FAQs</a>
       </nav>
       <div class="header-actions">
-        <a class="button button-outline header-cta-partner" href="#" class="js-open-partner-modal">Partner
+        <a class="button button-outline header-cta-partner js-open-partner-modal" href="#">Partner
           Now</a>
-        <a class="button button-primary header-cta" href="#register">Book Your Slot</a>
+        <a class="button button-primary header-cta" href="#registration-form-container">Book Your Slot</a>
       </div>
     </div>
   </header>
@@ -56,11 +56,10 @@
                 Only 10% of Indian students receive expert career advice. We're fixing that one city, one conversation
                 at a time.
               </p>
-              <div class="hero-date-pill">May 9 - Aug 15<br><span>Every Saturday &amp; Sunday | 09:00 AM - 05:00
-                  PM</span></div>
+              <div class="hero-date-pill">May 9 - Aug 15<br><span>Every Saturday &amp; Sunday</span></div>
               <p class="hero-city-line">Delhi | Jaipur | Bhopal | Mumbai | Pune | Patna | Lucknow</p>
               <div class="hero-copy-actions">
-                <a href="#register" class="button button-primary hero-main-cta">Book Your Slot</a>
+                <a href="#registration-form-container" class="button button-primary hero-main-cta">Book Your Slot</a>
               </div>
             </div>
 
@@ -138,155 +137,6 @@
       </div>
     </section>
 
-    <section class="section register-section reveal-on-scroll" id="register">
-      <div class="container register-layout">
-        <article class="glass-card full-register-card">
-          <div class="card-header text-center">
-            <h2 id="register-modal-title">Focused 1-on-1 Counselling</h2>
-            <p class="register-modal-subtitle">Reserve Your 15-Min Private Slot</p>
-            <p>Limited Seats Per City | Register Now at INR 399 Only</p>
-          </div>
-
-          <div class="register-form-highlights" aria-hidden="true">
-            <span class="register-highlight-pill">Private Cabin Session</span>
-            <span class="register-highlight-pill">Expert Counsellors</span>
-            <span class="register-highlight-pill">Priority Access</span>
-          </div>
-
-          <form id="heroRegistrationForm" class="flat-flow-form" novalidate>
-            <div class="form-view active-view" id="view-mobile">
-              <div class="form-group">
-                <label for="reg-phone">Verify your contact number</label>
-                <input type="tel" id="reg-phone" placeholder="Enter 10-digit number" required pattern="[0-9]{10}">
-                <span class="error-msg">Please enter a valid 10-digit number.</span>
-              </div>
-              <button type="button" class="button button-primary button-block" id="btn-send-otp">Continue</button>
-            </div>
-
-            <div class="form-view" id="view-otp">
-              <div class="form-group">
-                <label for="reg-otp">Enter OTP</label>
-                <p class="meta-label">OTP sent to <span id="display-phone"></span> <a href="#" id="edit-phone">Edit</a>
-                </p>
-                <input type="text" id="reg-otp" placeholder="4-digit code" required pattern="[0-9]{4}">
-                <span class="error-msg">Invalid OTP. Enter 1234.</span>
-              </div>
-              <button type="button" class="button button-primary button-block" id="btn-verify-otp">Verify &
-                Proceed</button>
-            </div>
-
-            <div class="form-view" id="view-details">
-              <div class="form-group">
-                <label for="reg-name">Full Name</label>
-                <input type="text" id="reg-name" placeholder="E.g., Anjali Sharma" required>
-              </div>
-              <div class="form-group">
-                <label for="reg-email">Email Address</label>
-                <input type="email" id="reg-email" placeholder="E.g., anjali@example.com" required>
-              </div>
-
-              <div class="form-group">
-                <label for="reg-type">I am a...</label>
-                <select id="reg-type" required>
-                  <option value="">Select profile</option>
-                  <option value="student">Student (Class 12)</option>
-                  <option value="graduate">Graduating Youth</option>
-                </select>
-              </div>
-
-              <div id="student-fields" style="display: none;">
-                <div class="form-group">
-                  <label for="reg-school">School Name</label>
-                  <input type="text" id="reg-school" placeholder="Enter school name">
-                </div>
-                <div class="form-group">
-                  <label for="reg-stream">Stream</label>
-                  <select id="reg-stream">
-                    <option value="">Select Stream</option>
-                    <option value="Science">Science</option>
-                    <option value="Commerce">Commerce</option>
-                    <option value="Humanities">Humanities</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="reg-pass-year">Passing Year</label>
-                  <input type="number" id="reg-pass-year" placeholder="E.g., 2026">
-                </div>
-              </div>
-
-              <div id="graduate-fields" style="display: none;">
-                <div class="form-group">
-                  <label for="reg-institute">Institute Name</label>
-                  <input type="text" id="reg-institute" placeholder="Enter institute name">
-                </div>
-                <div class="form-group">
-                  <label for="reg-domain">Domain</label>
-                  <input type="text" id="reg-domain" placeholder="E.g., Engineering, Arts">
-                </div>
-                <div class="form-group">
-                  <label for="reg-grad-year">Graduation Year</label>
-                  <input type="number" id="reg-grad-year" placeholder="E.g., 2025">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="reg-city">Current City</label>
-                <select id="reg-city" required>
-                  <option value="">Choose your city</option>
-                  <option value="Delhi">Delhi</option>
-                  <option value="Jaipur">Jaipur</option>
-                  <option value="Bhopal">Bhopal</option>
-                  <option value="Mumbai">Mumbai</option>
-                  <option value="Pune">Pune</option>
-                  <option value="Patna">Patna</option>
-                  <option value="Lucknow">Lucknow</option>
-                </select>
-              </div>
-              <button type="submit" class="button button-primary button-block" id="btn-submit">Pay INR 399 &
-                Register</button>
-            </div>
-
-            <div class="form-view text-center" id="view-success">
-              <div class="success-icon">✓</div>
-              <h3>Registration Complete!</h3>
-              <p>We will send your entry pass shortly.</p>
-            </div>
-          </form>
-        </article>
-
-        <aside class="glass-card register-info-card">
-          <div class="register-info-shell">
-            <h2>Explore College Booths</h2>
-            <p class="register-info-lead">Meet colleges and get quick answers to your queries before or after your
-              counselling session.</p>
-            <div class="register-info-points">
-              <div class="register-info-point">
-                <div class="register-info-icon">🧭</div>
-                <div>
-                  <h3>Better Context</h3>
-                  <p>Use what you learn at the booths to make your 1-on-1 counselling session more targeted.</p>
-                </div>
-              </div>
-              <div class="register-info-point">
-                <div class="register-info-icon">🎓</div>
-                <div>
-                  <h3>Quick Comparisons</h3>
-                  <p>Compare institutions, offerings, and outcomes without leaving the venue.</p>
-                </div>
-              </div>
-              <div class="register-info-point">
-                <div class="register-info-icon">💬</div>
-                <div>
-                  <h3>Direct Questions</h3>
-                  <p>Clarify fees, admissions, scholarships, and timelines with college reps on the spot.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
     <section class="section event-snapshot-section reveal-on-scroll" id="event-snapshot">
       <div class="container">
         <div class="section-heading text-center">
@@ -310,10 +160,13 @@
                 students</strong> receive expert career advice or are even aware of it.</p>
             <p class="snapshot-feature-copy">Against this backdrop, The <strong>Times Career Counselling 2026</strong>
               multi-city initiative brings a focused, on-ground intervention across key cities, viz., Delhi, Jaipur,
-              Bhopal, Mumbai, Pune, Patna, and Lucknow. Built as a weekend format from May 09 till August 15, the event
-              offers students and parents direct access to experienced counsellors through one-on-one, <strong>15-minute
-                private cabin sessions</strong>, along with mainstage insights from industry leaders and breakout
-              interactive assessment zones and college booths. These are not generic seminars or crowded fairs; they are
+              Bhopal, Mumbai, Pune, Patna, and Lucknow. Built as a weekend format from <strong>May 09 till August
+                15</strong>, the event
+              allows students and parents to explore colleges and institutes with clarity on courses, fee structure,
+              placements, and more
+              </strong> along with mainstage insights from industry leaders. Students can also get 1-on-1 counselling in
+              private cabins from certified counsellors for a nominal fee. These are not generic seminars or crowded
+              fairs; they are
               structured conversations tailored to individual profiles, covering course choices and long-term career
               alignment.</p>
           </div>
@@ -321,7 +174,239 @@
       </div>
     </section>
 
-    <section class="section tracks-section reveal-on-scroll" id="tracks">
+    <section class="section register-section reveal-on-scroll" id="register">
+      <div class="container container-large register-stacked-container">
+        <div class="register-stacked-layout">
+          <!-- Header Area -->
+          <div class="register-stacked-header text-center">
+            <h2 id="register-modal-title">Explore Top Colleges | <span class="accent-text">Gain Expert
+                Insights</span></h2>
+          </div>
+
+          <!-- Info Cards Area -->
+          <div class="register-bento-grid-2">
+            <div class="bento-benefit-card slide-up">
+              <div class="bento-benefit-icon">🏢</div>
+              <div class="bento-benefit-text">
+                <h3>Your Direct Line to Best Institutions</h3>
+                <ul class="register-form-bullets premium-bullets">
+                  <li>Talk directly to admission teams</li>
+                  <li>Get clarity on courses, fees, placements</li>
+                  <li>Compare colleges & programmes</li>
+                  <li>Cut confusion, shortlist what fits you</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="bento-benefit-card slide-up delay-1">
+              <div class="bento-benefit-icon">🎙️</div>
+              <div class="bento-benefit-text">
+                <h3>Real Talk on careers & What Comes Next</h3>
+                <ul class="register-form-bullets premium-bullets">
+                  <li>Hear from industry professionals, education leaders</li>
+                  <li>Understand where different careers are heading</li>
+                  <li>Learn skills actually being valued</li>
+                  <li>Insights on higher education, career directions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Area -->
+          <div class="register-form-bottom-wrapper slide-up delay-2" id="registration-form-container">
+            <div class="glass-card premium-form-card">
+              <div class="premium-form-header">
+                <h3>Secure Your Pass</h3>
+                <p>Limited seats available for early-bird slots</p>
+              </div>
+              <form id="heroRegistrationForm" class="flat-flow-form premium-flow-form" novalidate>
+                <div class="form-view active-view" id="view-mobile">
+                  <div class="form-group">
+                    <label for="reg-phone">Verify your contact number</label>
+                    <input type="tel" id="reg-phone" placeholder="Enter 10-digit number" required pattern="[0-9]{10}">
+                    <span class="error-msg">Please enter a valid 10-digit number.</span>
+                  </div>
+                  <button type="button" class="button button-primary button-block" id="btn-send-otp">Continue</button>
+                </div>
+
+                <div class="form-view" id="view-otp">
+                  <div class="form-group">
+                    <label for="reg-otp">Enter OTP</label>
+                    <p class="meta-label">OTP sent to <span id="display-phone"></span> <a href="#"
+                        id="edit-phone">Edit</a>
+                    </p>
+                    <input type="text" id="reg-otp" placeholder="4-digit code" required pattern="[0-9]{4}">
+                    <span class="error-msg">Invalid OTP. Enter 1234.</span>
+                  </div>
+                  <button type="button" class="button button-primary button-block" id="btn-verify-otp">Verify &
+                    Proceed</button>
+                </div>
+
+                <div class="form-view" id="view-details">
+                  <div class="form-group">
+                    <label for="reg-name">Full Name</label>
+                    <input type="text" id="reg-name" placeholder="E.g., Anjali Sharma" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" placeholder="E.g., anjali@example.com" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="reg-type">I am a...</label>
+                    <select id="reg-type" required>
+                      <option value="">Select profile</option>
+                      <option value="student">Student (Class 12)</option>
+                      <option value="graduate">Graduating Youth</option>
+                    </select>
+                  </div>
+
+                  <div id="student-fields" style="display: none;">
+                    <div class="form-group">
+                      <label for="reg-school">School Name</label>
+                      <input type="text" id="reg-school" placeholder="Enter school name">
+                    </div>
+                    <div class="form-group">
+                      <label for="reg-stream">Stream</label>
+                      <select id="reg-stream">
+                        <option value="">Select Stream</option>
+                        <option value="Science">Science</option>
+                        <option value="Commerce">Commerce</option>
+                        <option value="Humanities">Humanities</option>
+                        <option value="Humanities">Others</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="reg-pass-year">Passing Year</label>
+                      <input type="number" id="reg-pass-year" placeholder="E.g., 2026">
+                    </div>
+                  </div>
+
+                  <div id="graduate-fields" style="display: none;">
+                    <div class="form-group">
+                      <label for="reg-institute">Institute Name</label>
+                      <input type="text" id="reg-institute" placeholder="Enter institute name">
+                    </div>
+                    <div class="form-group">
+                      <label for="reg-domain">Domain</label>
+                      <input type="text" id="reg-domain" placeholder="E.g., Engineering, Arts">
+                    </div>
+                    <div class="form-group">
+                      <label for="reg-grad-year">Graduation Year</label>
+                      <input type="number" id="reg-grad-year" placeholder="E.g., 2025">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="reg-city">Current City</label>
+                    <select id="reg-city" required>
+                      <option value="">Choose your city</option>
+                      <option value="Delhi">Delhi</option>
+                      <option value="Jaipur">Jaipur</option>
+                      <option value="Bhopal">Bhopal</option>
+                      <option value="Mumbai">Mumbai</option>
+                      <option value="Pune">Pune</option>
+                      <option value="Patna">Patna</option>
+                      <option value="Lucknow">Lucknow</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group" id="time-slot-group">
+                    <label for="reg-time-slot">Preferred Time Slot</label>
+                    <select id="reg-time-slot" required>
+                      <option value="">Choose a slot</option>
+                      <option value="10:00 AM to 01:00 PM">10:00 AM to 01:00 PM</option>
+                      <option value="03:00 PM to 06:00 PM">03:00 PM to 06:00 PM</option>
+                    </select>
+                  </div>
+
+                  <!-- PASS SELECTION -->
+                  <div class="pass-selection-container">
+                    <label class="pass-selection-label">Choose Your Pass</label>
+                    <div class="pass-options-grid">
+                      <label class="pass-option-card">
+                        <input type="radio" name="pass_type" value="free" class="hidden-radio">
+                        <div class="pass-card-ui">
+                          <div class="pass-header">
+                            <h4>Visitor Pass</h4>
+                            <span class="pass-price">Free</span>
+                          </div>
+                          <ul class="pass-features-list">
+                            <li>Explore College Booths</li>
+                            <li>Attend Mainstage Talks</li>
+                          </ul>
+                        </div>
+                      </label>
+
+                      <label class="pass-option-card premium-pass-card">
+                        <div class="recommended-badge">Highly Recommended</div>
+                        <input type="radio" name="pass_type" value="paid" class="hidden-radio" checked>
+                        <div class="pass-card-ui">
+                          <div class="pass-header">
+                            <h4>Counselling Pass</h4>
+                            <div class="pass-pricing">
+                              <span class="price-slashed">₹1499</span>
+                              <span class="pass-price">₹399</span>
+                            </div>
+                          </div>
+                          <ul class="pass-features-list">
+                            <li class="premium-feature"><strong>1-on-1 Private Counselling (15 Mins)</strong></li>
+                            <li>Priority Entry & Access</li>
+                            <li>Explore College Booths</li>
+                            <li>Attend Mainstage Talks</li>
+                          </ul>
+                          <div class="pass-card-footer">
+                            <div class="live-activity-alert">
+                              <span class="pulse-dot-red"></span>
+                              <div class="live-activity-ticker">
+                                <div class="marquee-content" id="dynamic-marquee-text">70 people are filling this form
+                                  right now</div>
+                              </div>
+                              <span class="live-activity-icon">🔥</span>
+                            </div>
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="terms-acknowledgement" id="terms-acknowledgement-wrapper">
+                    <label class="terms-checkbox-label">
+                      <input type="checkbox" id="reg-terms-checkbox" name="terms_agreed" required>
+                      <span class="terms-text">I acknowledge the <span id="toggle-terms-details"
+                          style="text-decoration: underline; color: #0055ff; cursor: pointer;">booking terms &
+                          conditions</span>.</span>
+                    </label>
+                    <div class="terms-details-accordion" id="terms-accordion-content" style="display: none;">
+                      <ul class="terms-list">
+                        <li>Allocation of 15-min session is first-come, first-served; subject to cancellation</li>
+                        <li>Allocation will close if your preferred slot is full</li>
+                        <li>If full, you’ll be moved to next available slot</li>
+                        <li>Fee is refundable if you withdraw from the session</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="button button-primary button-block" id="btn-submit">Pay INR 399 &
+                    Register</button>
+                </div>
+
+                <div class="form-view text-center" id="view-success">
+                  <div class="success-icon">✓</div>
+                  <h3>Registration Complete!</h3>
+                  <p id="success-pass-message">We will send your entry pass shortly.</p>
+                  <p class="success-rebook-msg"
+                    style="font-size: 0.9rem; color: #64748b; margin-top: 1rem; border-top: 1px dashed rgba(15, 23, 42, 0.1); padding-top: 1rem;">
+                    If you wish to attend multiple sessions, you can easily rebook for additional slots.</p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tracks-section reveal-on-scroll" id="tracks"
+      style="background: radial-gradient(circle at top, rgba(0, 85, 255, 0.08) 0%, transparent 60%), var(--color-bg); border-top: 1px dashed rgba(0, 85, 255, 0.1);">
       <div class="container">
         <div class="section-heading text-center">
           <h2>What we talk about</h2>
@@ -383,9 +468,19 @@
             </div>
           </article>
         </div>
+      </div>
+    </section>
 
-        <div class="section-heading text-center" id="who" style="margin-top:4rem;">
-          <h2>Is this for you?</h2>
+    <!-- Distinct Section: Is this for you? -->
+    <section class="section who-section reveal-on-scroll" id="who"
+      style="background: linear-gradient(180deg, #0a0f1c 0%, #020617 100%); position: relative; border-top: 1px solid rgba(255,255,255,0.03);">
+      <div class="container relative" style="z-index: 2;">
+        <div class="section-heading text-center" style="margin-bottom: 3.5rem;">
+          <h2
+            style="background: linear-gradient(to right, #60a5fa, #3b82f6); -webkit-background-clip: text; color: transparent;">
+            Is this for you?</h2>
+          <p style="margin-top: 0.5rem; color: #94a3b8; font-size: 1.1rem;">A tailored journey designed for multiple
+            career stages</p>
         </div>
         <div class="who-join-grid">
           <article class="who-item who-item-square"><span class="who-square-icon">🎓</span><span>Class 12 students
@@ -410,70 +505,9 @@
       </div>
     </section>
 
-    <!-- Process / Agenda (High Contrast) -->
-    <section class="section process-section reveal-on-scroll" id="process">
-      <div class="container">
-        <article class="dark-glass comparison-card comparison-card-full comparison-card-marquee-dark">
-          <h3>What You Walk Away With</h3>
-          <div class="benefit-marquee" aria-label="What you walk away with">
-            <div class="benefit-marquee-track">
-              <article class="benefit-card">
-                <span class="benefit-card-icon">✓</span>
-                <p>15-minute private counselling with an expert</p>
-              </article>
-              <article class="benefit-card">
-                <span class="benefit-card-icon">✓</span>
-                <p>Clear stream and course shortlist</p>
-              </article>
-              <article class="benefit-card">
-                <span class="benefit-card-icon">✓</span>
-                <p>Defined next steps for exams and applications</p>
-              </article>
-              <article class="benefit-card">
-                <span class="benefit-card-icon">✓</span>
-                <p>Direct answers to cost, loans, and ROI questions</p>
-              </article>
-              <article class="benefit-card">
-                <span class="benefit-card-icon">✓</span>
-                <p>Joint decision-making with parents in the same room</p>
-              </article>
-              <article class="benefit-card">
-                <span class="benefit-card-icon">✓</span>
-                <p>Direct access to colleges at on-ground booths</p>
-              </article>
-
-              <article class="benefit-card" aria-hidden="true">
-                <span class="benefit-card-icon">✓</span>
-                <p>15-minute private counselling with an expert</p>
-              </article>
-              <article class="benefit-card" aria-hidden="true">
-                <span class="benefit-card-icon">✓</span>
-                <p>Clear stream and course shortlist</p>
-              </article>
-              <article class="benefit-card" aria-hidden="true">
-                <span class="benefit-card-icon">✓</span>
-                <p>Defined next steps for exams and applications</p>
-              </article>
-              <article class="benefit-card" aria-hidden="true">
-                <span class="benefit-card-icon">✓</span>
-                <p>Direct answers to cost, loans, and ROI questions</p>
-              </article>
-              <article class="benefit-card" aria-hidden="true">
-                <span class="benefit-card-icon">✓</span>
-                <p>Joint decision-making with parents in the same room</p>
-              </article>
-              <article class="benefit-card" aria-hidden="true">
-                <span class="benefit-card-icon">✓</span>
-                <p>Direct access to colleges at on-ground booths</p>
-              </article>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
     <!-- B2B Segregation: Dark Glass Container -->
-    <section class="section partner-section dark-glass-container reveal-on-scroll" id="partners">
+    <section class="section partner-section reveal-on-scroll" id="partners"
+      style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
       <div class="container">
         <div class="partner-head">
           <h2>Reach families<br><span class="partner-head-accent">ready to lock career choices</span>
@@ -506,50 +540,88 @@
           </article>
         </div>
         <div class="partner-cta">
-          <a href="#" class="js-open-partner-modal" class="button button-primary">Partner Now</a>
+          <a href="#" class="button button-primary js-open-partner-modal">Partner Now</a>
         </div>
       </div>
     </section>
 
     <!-- FAQs Interactive Elements -->
+    <!-- Advanced FAQs Section -->
     <section class="section faq-section reveal-on-scroll" id="faq">
       <div class="container section-narrow">
         <div class="section-heading text-center">
-          <h2>FAQs</h2>
+          <h2>Got Questions?</h2>
+          <p style="margin-top: 0.5rem; color: #64748b; font-size: 1.1rem;">Everything you need to know about passes,
+            slots, and conditions</p>
         </div>
 
         <div class="faq-accordion">
+
+          <h3 class="faq-category-title"
+            style="margin: 2rem 0 1rem; font-size: 1.05rem; color: #0055ff; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
+            Passes & Registration</h3>
+
           <details class="glass-accordion" name="faq">
-            <summary>What is the cost of attending?</summary>
+            <summary>What is the difference between the Free Visitor Pass and the Counselling Pass?</summary>
             <div class="accordion-content">
-              <p>The registration fee is INR 399, which secures your dedicated 15-minute 1-on-1 counselling session in a
-                private cabin as well as access to the college exhibition booths.</p>
+              <p>The <strong>Visitor Pass</strong> is absolutely free and grants you access to explore the college
+                exhibition booths and attend mainstage talks. The <strong>Counselling Pass (₹399)</strong> includes
+                everything from the Free Pass but unlocks a guaranteed, private 15-minute 1-on-1 counselling session
+                with a career expert. It also grants you priority queue entry at the venue.</p>
+            </div>
+          </details>
+
+          <details class="glass-accordion" name="faq">
+            <summary>How do the time slots for 1-on-1 counselling work?</summary>
+            <div class="accordion-content">
+              <p>During your registration for the premium pass, you select a <strong>Preferred Time Slot</strong> (10:00
+                AM to 01:00 PM <i>or</i> 03:00 PM to 06:00 PM).</p>
+              <p style="margin-top: 0.5rem;"><strong>Important Terms:</strong> Allocation of the exact 15-minute session
+                within your block is strictly <strong>first-come, first-served</strong>. If your preferred time slot
+                becomes fully booked, allocation will close and you will automatically be moved to the next available
+                slot.</p>
+            </div>
+          </details>
+
+          <details class="glass-accordion" name="faq">
+            <summary>Is the ₹399 payment refundable?</summary>
+            <div class="accordion-content">
+              <p>Yes. The booking fee is comprehensively refundable if you withdraw from the session prior to attending.
+                Simply reach out to our desk or support channel.</p>
+            </div>
+          </details>
+
+          <details class="glass-accordion" name="faq">
+            <summary>Can I register only for the 1-on-1 counselling session instead of the event?</summary>
+            <div class="accordion-content">
+              <p>No. Registration for the event is mandatory. However, you may decide to skip the main event and only
+                attend your counselling session at the venue.</p>
+            </div>
+          </details>
+
+          <h3 class="faq-category-title"
+            style="margin: 2.5rem 0 1rem; font-size: 1.05rem; color: #0055ff; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
+            Event Experience</h3>
+
+          <details class="glass-accordion" name="faq">
+            <summary>When will I receive my pass?</summary>
+            <div class="accordion-content">
+              <p>Passes will be sent shortly after you complete your registration. Your digital entry pass will be
+                dispatched to your Email address. If you've booked the Counselling Pass, your priority ticket will
+                <i>also</i> be securely delivered via Email & WhatsApp shortly.
+              </p>
             </div>
           </details>
 
           <details class="glass-accordion" name="faq">
             <summary>Should parents attend with the student?</summary>
             <div class="accordion-content">
-              <p>Absolutely. Career decisions are family decisions. We highly encourage parents to attend the mainstage
-                sessions and participate in the guidance process.</p>
+              <p>Absolutely. Career decisions are major family investments. We highly encourage parents to attend the
+                exhibition, mainstage talks, and directly accompany the student inside the 1-on-1 counselling cabins for
+                full transparency.</p>
             </div>
           </details>
 
-          <details class="glass-accordion" name="faq">
-            <summary>How long will the entire experience take?</summary>
-            <div class="accordion-content">
-              <p>We recommend setting aside 2.5 to 3 hours to fully benefit from the keynote, breakout sessions, and
-                institution interactions.</p>
-            </div>
-          </details>
-
-          <details class="glass-accordion" name="faq">
-            <summary>Will I receive a confirmed pass?</summary>
-            <div class="accordion-content">
-              <p>Yes, once your registration is complete and your mobile number is verified via OTP, you will instantly
-                receive your digital entry pass on WhatsApp.</p>
-            </div>
-          </details>
         </div>
       </div>
     </section>
@@ -559,7 +631,7 @@
   <footer class="site-footer">
     <div class="container text-center">
       <h2>The Future Demands Clarity.</h2>
-      <a class="button button-primary header-cta" href="#register">Book Your Slot</a>
+      <a class="button button-primary header-cta" href="#registration-form-container">Book Your Slot</a>
       <p class="footer-legal">© 2026 Times Career Counselling. All rights reserved.</p>
     </div>
   </footer>
@@ -571,11 +643,11 @@
         <span class="sticky-event-brand">Times</span>
         <span>Career Counselling 2026</span>
       </div>
-      <div class="sticky-event-details">May 9 - Aug 15 • Every Saturday &amp; Sunday • 09:00 AM - 05:00 PM</div>
+      <div class="sticky-event-details">May 9 - Aug 15 • Every Saturday &amp; Sunday</div>
     </div>
     <div class="sticky-actions">
-      <a href="#" class="js-open-partner-modal" class="button sticky-btn sticky-btn-secondary">Partner Now</a>
-      <a href="#register" class="button button-primary sticky-btn">Register Now</a>
+      <a href="#" class="button sticky-btn sticky-btn-secondary js-open-partner-modal">Partner Now</a>
+      <a href="#registration-form-container" class="button button-primary sticky-btn">Register Now</a>
     </div>
   </div>
 
@@ -585,7 +657,8 @@
       <button class="close-popup" aria-label="Close popup">&times;</button>
       <h2>Leaving so soon?</h2>
       <p>Secure your spot before seats fill up in your city. It only takes a minute.</p>
-      <a href="#register" class="button button-primary button-block js-close-popup">Book Your Slot</a>
+      <a href="#registration-form-container" class="button button-primary button-block js-close-popup">Book Your
+        Slot</a>
     </div>
   </div>
 
@@ -597,7 +670,7 @@
       <div class="partner-modal-header">
         <span class="overline-badge light">Partner with Us</span>
         <h2 id="partner-modal-title">Let's build something together</h2>
-        <p>Share your details and our team will reach out within 24 hours.</p>
+        <p>Share your details and our team will reach out within 48 hours.</p>
       </div>
 
       <form id="partnerForm" class="flat-flow-form" novalidate>
