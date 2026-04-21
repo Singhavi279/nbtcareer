@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetElement) {
         e.preventDefault();
 
-        // Offset for the fixed glass nav
-        const headerOffset = 80;
+        // Offset for the fixed glass nav (increased due to top banner)
+        const headerOffset = 120;
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -207,6 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggleTermsLink = document.getElementById('toggle-terms-details');
   const timeSlotGroup = document.getElementById('time-slot-group');
   const regTimeSlot = document.getElementById('reg-time-slot');
+  const dateSelectionGroup = document.getElementById('date-selection-group');
+  const dateGrid = document.getElementById('date-grid');
+  const regDatesInput = document.getElementById('reg-dates');
 
   const updatePassUI = (isPaid) => {
     if (isPaid) {
@@ -215,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (termsCheckbox) termsCheckbox.required = true;
       if (timeSlotGroup) timeSlotGroup.style.display = 'block';
       if (regTimeSlot) regTimeSlot.required = true;
+      if (dateSelectionGroup) dateSelectionGroup.style.display = 'block';
     } else {
       btnSubmitFinal.textContent = 'Get Free Visitor Pass';
       if (termsWrapper) termsWrapper.style.display = 'none';
@@ -227,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (regTimeSlot) {
         regTimeSlot.required = false;
       }
+      if (dateSelectionGroup) dateSelectionGroup.style.display = 'none';
     }
   };
 
@@ -259,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fieldsToSave = [
       'reg-phone', 'reg-name', 'reg-email', 'reg-type', 'reg-school',
       'reg-stream', 'reg-pass-year', 'reg-institute', 'reg-domain',
-      'reg-grad-year', 'reg-city', 'reg-time-slot'
+      'reg-grad-year', 'reg-other-type', 'reg-city', 'reg-time-slot', 'reg-dates'
     ];
     fieldsToSave.forEach(id => {
       const el = document.getElementById(id);
@@ -271,6 +276,11 @@ document.addEventListener('DOMContentLoaded', () => {
       dataObj['pass_type'] = checkedPass.value;
     }
 
+    const checkedLoan = document.querySelector('input[name="reg-loan"]:checked');
+    if (checkedLoan) {
+      dataObj['reg-loan'] = checkedLoan.value;
+    }
+
     localStorage.setItem('nbtCareerFormState', JSON.stringify(dataObj));
   };
 
@@ -280,8 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const dataObj = JSON.parse(saved);
         Object.keys(dataObj).forEach(key => {
-          if (key === 'pass_type') {
-            const matchingRadio = document.querySelector(`input[name="pass_type"][value="${dataObj[key]}"]`);
+          if (key === 'pass_type' || key === 'reg-loan') {
+            const matchingRadio = document.querySelector(`input[name="${key}"][value="${dataObj[key]}"]`);
             if (matchingRadio) {
               matchingRadio.checked = true;
               matchingRadio.dispatchEvent(new Event('change'));
@@ -347,11 +357,87 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ========================================================
+     4.5 Multi-Date Picker Generation & Logic
+     ======================================================== */
+  const weekendDates = [
+    { d: 9, m: 'May', day: 'Sat' }, { d: 10, m: 'May', day: 'Sun' },
+    { d: 16, m: 'May', day: 'Sat' }, { d: 17, m: 'May', day: 'Sun' },
+    { d: 23, m: 'May', day: 'Sat' }, { d: 24, m: 'May', day: 'Sun' },
+    { d: 30, m: 'May', day: 'Sat' }, { d: 31, m: 'May', day: 'Sun' },
+    { d: 6, m: 'Jun', day: 'Sat' }, { d: 7, m: 'Jun', day: 'Sun' },
+    { d: 13, m: 'Jun', day: 'Sat' }, { d: 14, m: 'Jun', day: 'Sun' },
+    { d: 20, m: 'Jun', day: 'Sat' }, { d: 21, m: 'Jun', day: 'Sun' },
+    { d: 27, m: 'Jun', day: 'Sat' }, { d: 28, m: 'Jun', day: 'Sun' },
+    { d: 4, m: 'Jul', day: 'Sat' }, { d: 5, m: 'Jul', day: 'Sun' },
+    { d: 11, m: 'Jul', day: 'Sat' }, { d: 12, m: 'Jul', day: 'Sun' },
+    { d: 18, m: 'Jul', day: 'Sat' }, { d: 19, m: 'Jul', day: 'Sun' },
+    { d: 25, m: 'Jul', day: 'Sat' }, { d: 26, m: 'Jul', day: 'Sun' },
+    { d: 1, m: 'Aug', day: 'Sat' }, { d: 2, m: 'Aug', day: 'Sun' },
+    { d: 8, m: 'Aug', day: 'Sat' }, { d: 9, m: 'Aug', day: 'Sun' },
+    { d: 15, m: 'Aug', day: 'Sat' }
+  ];
+
+  if (dateGrid) {
+    weekendDates.forEach(dateObj => {
+      const card = document.createElement('div');
+      card.className = 'date-card';
+      card.dataset.dateValue = `${dateObj.day} ${dateObj.d} ${dateObj.m}`;
+      card.innerHTML = `
+        <span class="date-day">${dateObj.day}</span>
+        <span class="date-number">${dateObj.d}</span>
+        <span class="date-month">${dateObj.m}</span>
+      `;
+      
+      card.addEventListener('click', () => {
+        card.classList.toggle('selected');
+        updateSelectedDates();
+      });
+      
+      dateGrid.appendChild(card);
+    });
+  }
+
+  function updateSelectedDates() {
+    const selected = Array.from(document.querySelectorAll('.date-card.selected'))
+      .map(c => c.dataset.dateValue);
+    regDatesInput.value = selected.join(', ');
+    regDatesInput.dispatchEvent(new Event('input')); // for saveFormState
+    regDatesInput.dispatchEvent(new Event('change'));
+  }
+
+  const originalLoadFormState = loadFormState;
+  loadFormState = () => {
+    originalLoadFormState();
+    if (regDatesInput && regDatesInput.value && dateGrid) {
+      const dateArr = regDatesInput.value.split(', ');
+      document.querySelectorAll('.date-card').forEach(card => {
+        if (dateArr.includes(card.dataset.dateValue)) {
+          card.classList.add('selected');
+        }
+      });
+    }
+  };
+
+  form.addEventListener('submit', (e) => {
+    const checkedPass = document.querySelector('input[name="pass_type"]:checked');
+    if (checkedPass && checkedPass.value === 'paid') {
+      if (!regDatesInput.value) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        dateSelectionGroup.classList.add('has-error');
+        dateSelectionGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+    }
+  });
+
+  /* ========================================================
      5. Form Conditional Fields
      ======================================================== */
   const regType = document.getElementById('reg-type');
   const studentFields = document.getElementById('student-fields');
   const graduateFields = document.getElementById('graduate-fields');
+  const otherFields = document.getElementById('other-fields');
 
   if (regType) {
     regType.addEventListener('change', (e) => {
@@ -359,12 +445,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (val === 'student') {
         studentFields.style.display = 'block';
         graduateFields.style.display = 'none';
-      } else if (val === 'graduate') {
+        otherFields.style.display = 'none';
+      } else if (val === 'graduate' || val === 'professional') {
         studentFields.style.display = 'none';
         graduateFields.style.display = 'block';
+        otherFields.style.display = 'none';
+      } else if (val === 'other') {
+        studentFields.style.display = 'none';
+        graduateFields.style.display = 'none';
+        otherFields.style.display = 'block';
       } else {
         studentFields.style.display = 'none';
         graduateFields.style.display = 'none';
+        otherFields.style.display = 'none';
       }
     });
   }
