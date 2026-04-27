@@ -35,71 +35,195 @@
         <a href="#faq">FAQs</a>
       </nav>
       <div class="header-actions">
-        <a class="button button-outline header-cta-partner js-open-partner-modal" href="#">Partner
-          Now</a>
-        <a class="button button-primary header-cta" href="#registration-form-container">Book Your Slot</a>
+        <a class="button button-primary header-cta" href="#registration-form-container">For Student</a>
+        <a class="button button-ghost-counselor js-open-counselor-modal" href="#">For Counsellor</a>
+        <a class="button button-outline header-cta-partner js-open-partner-modal" href="#">For Partner</a>
       </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="hamburger-btn js-open-mobile-nav" aria-label="Open mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
 
+  <!-- Mobile Nav Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-panel">
+      <button class="mobile-nav-close js-close-mobile-nav" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav-links">
+        <a href="#event-snapshot" class="js-close-mobile-nav">Overview</a>
+        <a href="#register" class="js-close-mobile-nav">Why Attend</a>
+        <a href="#tracks" class="js-close-mobile-nav">Key Themes</a>
+        <a href="#who" class="js-close-mobile-nav">Who's It For</a>
+        <a href="#counselor-section" class="counselor-link js-close-mobile-nav">Become a Counsellor</a>
+        <a href="#partners" class="partner-link js-close-mobile-nav">Why Partner</a>
+        <a href="#faq" class="js-close-mobile-nav">FAQs</a>
+      </div>
+      <div class="mobile-nav-ctas">
+        <a href="#registration-form-container" class="button button-primary js-close-mobile-nav">For Student</a>
+        <a href="#" class="button button-counselor js-open-counselor-modal">For Counsellor</a>
+        <a href="#" class="button button-outline js-open-partner-modal">For Partner</a>
+      </div>
+    </div>
+  </div>
+
   <main>
-    <!-- Hero Section -->
-    <section class="hero-split section" id="hero">
-      <div class="container hero-content">
-        <div class="hero-copy slide-up">
-          <div class="hero-copy-card">
-            <p class="hero-hashtag">#TimesCC2026</p>
-            <div class="hero-copy-main">
-              <p class="hero-brand-mark">Times</p>
-              <h1>Career Counselling 2026</h1>
-              <p class="hero-subheadline">
-                Only 10% of Indian students receive expert career advice. We're fixing that one city, one conversation
-                at a time.
-              </p>
-              <div class="hero-date-pill">May 9 - Aug 15<br><span>Every Saturday &amp; Sunday</span></div>
-              <p class="hero-city-line">Delhi | Jaipur | Bhopal | Mumbai | Pune | Patna | Lucknow | Chennai</p>
-              <div class="hero-copy-actions">
-                <a href="#registration-form-container" class="button button-primary hero-main-cta">Book Your Slot</a>
-              </div>
-            </div>
+    <!-- ═══════════════════════════════════════════════════════════
+         HERO CAROUSEL — 3 slides: Student · Counselor · Partner
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="hero-carousel-section" id="hero" aria-label="Who is this event for?">
 
-            <div class="trust-strip hero-trust-strip">
-              <p>Powered by <img
-                  src="https://static.langimg.com/thumb/119164302/navbharat-times.jpg?width=366&resizemode=4"
-                  alt="Navbharat Times"
-                  style="height: 30px; border-radius: 2px; vertical-align: middle; margin-left: 8px;">
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-visual-rhs slide-up delay-1">
-          <!-- Floating Word Clouds -->
-          <div class="rhs-word-cloud">
-            <!-- Left Word Cloud -->
-            <span class="cloud-word cw-l-1">Govt or private job</span>
-            <span class="cloud-word cw-l-2">Fastest growing jobs?</span>
-            <span class="cloud-word cw-l-3">Must-have job skills?</span>
-            <span class="cloud-word cw-l-4">Passion vs Skills?</span>
-            <span class="cloud-word cw-l-5">Earn while studying?</span>
-
-            <!-- Right Word Cloud -->
-            <span class="cloud-word cw-r-1">Best college for me?</span>
-            <span class="cloud-word cw-r-2">Should I drop a year?</span>
-            <span class="cloud-word cw-r-3">Career in AI?</span>
-            <span class="cloud-word cw-r-4">Is online learning enough?</span>
-            <span class="cloud-word cw-r-5">What if I choose wrong career?</span>
-          </div>
-
-          <!-- Hero Section Image -->
-          <div class="rhs-characters">
-            <img src="assets/hero-image.png" alt="Students exploring career choices"
-              class="hero-character main-hero-img">
-          </div>
-        </div>
+      <!-- Audience Switcher Pills -->
+      <div class="hero-audience-switcher">
+        <button class="audience-pill active" data-slide="0" id="pill-student" aria-label="I am a Student">
+          <span class="pill-icon">🎓</span> For Student
+        </button>
+        <button class="audience-pill" data-slide="1" id="pill-counselor" aria-label="I am a Counselor">
+          <span class="pill-icon">🧠</span> For Counsellor
+        </button>
+        <button class="audience-pill" data-slide="2" id="pill-partner" aria-label="I am a Partner">
+          <span class="pill-icon">🤝</span> For Partner
+        </button>
       </div>
 
-    </section>
+      <!-- Carousel Track -->
+      <div class="hero-carousel-track" id="heroCarouselTrack">
+
+        <!-- ── SLIDE 0 · STUDENT ── -->
+        <div class="hero-slide hero-slide--student active" data-index="0" id="slide-student">
+          <div class="container hero-content">
+            <div class="hero-copy slide-up">
+              <div class="hero-copy-card">
+                <p class="hero-hashtag">#TimesCC2026</p>
+                <div class="hero-copy-main">
+                  <p class="hero-brand-mark">Times</p>
+                  <h1>Career Counselling 2026</h1>
+                  <p class="hero-subheadline">
+                    Only 10% of Indian students receive expert career advice. We're fixing that — one city, one
+                    conversation at a time.
+                  </p>
+                  <div class="hero-date-pill">May 9 – Aug 15<br><span>Every Saturday &amp; Sunday</span></div>
+                  <p class="hero-city-line">Delhi | Jaipur | Bhopal | Mumbai | Pune | Patna | Lucknow | Chennai</p>
+                  <div class="hero-copy-actions">
+                    <a href="#registration-form-container" class="button button-primary hero-main-cta">For Student</a>
+                  </div>
+                </div>
+                <div class="trust-strip hero-trust-strip">
+                  <p>Powered by <img
+                      src="https://static.langimg.com/thumb/119164302/navbharat-times.jpg?width=366&resizemode=4"
+                      alt="Navbharat Times"
+                      style="height: 30px; border-radius: 2px; vertical-align: middle; margin-left: 8px;">
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="hero-visual-rhs slide-up delay-1">
+              <div class="rhs-word-cloud">
+                <span class="cloud-word cw-l-1">Govt or private job</span>
+                <span class="cloud-word cw-l-2">Fastest growing jobs?</span>
+                <span class="cloud-word cw-l-3">Must-have job skills?</span>
+                <span class="cloud-word cw-l-4">Passion vs Skills?</span>
+                <span class="cloud-word cw-l-5">Earn while studying?</span>
+                <span class="cloud-word cw-r-1">Best college for me?</span>
+                <span class="cloud-word cw-r-2">Should I drop a year?</span>
+                <span class="cloud-word cw-r-3">Career in AI?</span>
+                <span class="cloud-word cw-r-4">Is online learning enough?</span>
+                <span class="cloud-word cw-r-5">What if I choose wrong?</span>
+              </div>
+              <div class="rhs-characters">
+                <img src="assets/hero-image.png" alt="Students exploring career choices"
+                  class="hero-character main-hero-img">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SLIDE 1 · COUNSELOR ── -->
+        <div class="hero-slide hero-slide--counselor" data-index="1" id="slide-counselor">
+          <div class="container hero-content hero-content--counselor">
+            <div class="hero-copy">
+              <div class="hero-copy-card hero-copy-card--counselor">
+                <span class="slide-badge slide-badge--counselor">📢 Join as Counsellor</span>
+                <div class="hero-copy-main">
+                  <p class="hero-brand-mark" style="color:#7c3aed;">Become a</p>
+                  <h1 class="counselor-h1">Times Career<br>Counsellor 2026</h1>
+                  <p class="hero-subheadline counselor-subheadline">
+                    Share your expertise with students across 8 cities. Conduct 1-on-1 sessions, build your
+                    personal brand, and make a real impact on the next generation.
+                  </p>
+                  <div class="counselor-perks-row">
+                    <div class="counselor-perk"><span>💰</span> Comprehensive exposure</div>
+                    <div class="counselor-perk"><span>📍</span> 8 cities nationwide</div>
+                    <div class="counselor-perk"><span>🏅</span> Times Internet brand</div>
+                    <div class="counselor-perk"><span>📣</span> PR coverage</div>
+                  </div>
+                  <div class="hero-copy-actions">
+                    <a href="#" class="button button-counselor hero-main-cta js-open-counselor-modal">For
+                      Counsellors</a>
+                    <span class="seats-tag">Limited spots — apply early</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hero-visual-rhs hero-visual-rhs--counselor slide-up delay-1">
+              <div class="counselor-hero-image-wrapper">
+                <img src="assets/hero-counsellor.webp" alt="Career Counsellor" class="hero-counselor-img">
+                <p class="hero-footnote">* image for reference purpose only</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SLIDE 2 · PARTNER ── -->
+        <div class="hero-slide hero-slide--partner" data-index="2" id="slide-partner">
+          <div class="container hero-content hero-content--partner">
+            <div class="hero-copy">
+              <div class="hero-copy-card hero-copy-card--partner">
+                <span class="slide-badge slide-badge--partner">🏛️ Colleges &amp; Brands</span>
+                <div class="hero-copy-main">
+                  <p class="hero-brand-mark" style="color:#0f766e;">Partner with</p>
+                  <h1 class="partner-h1">Times Career<br>Counselling 2026</h1>
+                  <p class="hero-subheadline">
+                    Reach decision-stage students and parents across 8 major cities.
+                    Premium, low-noise environment designed for high conversion.
+                  </p>
+                  <div class="partner-highlights-row">
+                    <div class="partner-highlight"><span>🎯</span> Qualified audience</div>
+                    <div class="partner-highlight"><span>📊</span> Intent-backed leads</div>
+                    <div class="partner-highlight"><span>🏢</span> Dedicated cabin space</div>
+                    <div class="partner-highlight"><span>📣</span> PR &amp; media exposure</div>
+                  </div>
+                  <div class="hero-copy-actions">
+                    <a href="#" class="button button-partner hero-main-cta js-open-partner-modal">For Partner</a>
+                    <span class="seats-tag">Limited booths — inquire now</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hero-visual-rhs hero-visual-rhs--partner slide-up delay-1">
+              <div class="partner-hero-image-wrapper">
+                <img src="assets/hero-partner.png" alt="Times Career Partner" class="hero-partner-img">
+                <p class="hero-footnote">* image for reference purpose only</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /hero-carousel-track -->
+
+      <!-- Dot Nav -->
+      <div class="hero-carousel-dots" aria-hidden="true">
+        <button class="hero-dot active" data-slide="0"></button>
+        <button class="hero-dot" data-slide="1"></button>
+        <button class="hero-dot" data-slide="2"></button>
+      </div>
+
+    </section><!-- /hero-carousel-section -->
+
+
 
     <section class="section stats-section reveal-on-scroll" id="stats">
       <div class="container">
@@ -740,7 +864,7 @@
   <footer class="site-footer">
     <div class="container text-center">
       <h2>The Future Demands Clarity.</h2>
-      <a class="button button-primary header-cta" href="#registration-form-container">Book Your Slot</a>
+      <a class="button button-primary header-cta" href="#registration-form-container">For Students</a>
       <div class="footer-disclaimers">
         <p class="footer-disclaimer-text"><strong>Paid Registration Disclaimer:</strong> Thank you for registering for
           the Times Career Counselling session. Your booking is provisional and subject to venue capacity and final
@@ -767,8 +891,9 @@
       <div class="sticky-event-details">May 9 - Aug 15 • Every Saturday &amp; Sunday</div>
     </div>
     <div class="sticky-actions">
-      <a href="#" class="button sticky-btn sticky-btn-secondary js-open-partner-modal">Partner Now</a>
-      <a href="#registration-form-container" class="button button-primary sticky-btn">Register Now</a>
+      <a href="#registration-form-container" class="button button-primary sticky-btn">For Student</a>
+      <a href="#" class="button sticky-btn sticky-btn-counselor js-open-counselor-modal">For Counsellor</a>
+      <a href="#" class="button sticky-btn sticky-btn-secondary js-open-partner-modal">For Partner</a>
     </div>
   </div>
 
@@ -780,6 +905,79 @@
       <p>Secure your spot before seats fill up in your city. It only takes a minute.</p>
       <a href="#registration-form-container" class="button button-primary button-block js-close-popup">Book Your
         Slot</a>
+    </div>
+  </div>
+
+  <!-- Counselor Modal (opened from header) -->
+  <div class="partner-modal-overlay counselor-modal-overlay" id="counselorModal" role="dialog" aria-modal="true"
+    aria-labelledby="counselor-modal-title">
+    <div class="partner-modal-card glass-card">
+      <button class="close-popup partner-modal-close" id="counselorModalClose" aria-label="Close">&times;</button>
+      <div class="partner-modal-header">
+        <span class="overline-badge" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;">Counsellor
+          Apply</span>
+        <h2 id="counselor-modal-title">Join as a Counsellor</h2>
+        <p>Share your details and we'll onboard you within 48 hours.</p>
+      </div>
+      <form id="counselorModalForm" class="flat-flow-form" novalidate>
+        <div class="form-view active-view" id="cm-view-phone">
+          <div class="form-group">
+            <label for="cm-phone">Mobile Number</label>
+            <input type="tel" id="cm-phone" placeholder="Enter 10-digit number" required pattern="[0-9]{10}">
+            <span class="error-msg">Please enter a valid 10-digit number.</span>
+          </div>
+          <button type="button" class="button button-counselor button-block" id="cm-btn-send-otp">Get OTP</button>
+        </div>
+        <div class="form-view" id="cm-view-otp">
+          <div class="form-group">
+            <label for="cm-otp">Enter OTP</label>
+            <p class="meta-label">OTP sent to <span id="cm-display-phone"></span> <a href="#"
+                id="cm-edit-phone">Edit</a></p>
+            <input type="text" id="cm-otp" placeholder="4-digit OTP" required pattern="[0-9]{4}">
+            <span class="error-msg">Invalid OTP. Please try again.</span>
+          </div>
+          <button type="button" class="button button-counselor button-block" id="cm-btn-verify-otp">Verify &amp;
+            Continue</button>
+        </div>
+        <div class="form-view" id="cm-view-details">
+          <div class="form-group">
+            <label for="cm-name">Full Name</label>
+            <input type="text" id="cm-name" placeholder="E.g., Dr. Priya Sharma" required>
+            <span class="error-msg">Please enter your full name.</span>
+          </div>
+          <div class="form-group">
+            <label for="cm-email">Email Address</label>
+            <input type="email" id="cm-email" placeholder="E.g., priya@example.com" required>
+            <span class="error-msg">Please enter a valid email address.</span>
+          </div>
+          <div class="form-group">
+            <label for="cm-city">Preferred City</label>
+            <select id="cm-city" required>
+              <option value="">Select your city</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Jaipur">Jaipur</option>
+              <option value="Bhopal">Bhopal</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Pune">Pune</option>
+              <option value="Patna">Patna</option>
+              <option value="Lucknow">Lucknow</option>
+              <option value="Chennai">Chennai</option>
+            </select>
+            <span class="error-msg">Please select your city.</span>
+          </div>
+          <div class="form-group">
+            <label for="cm-note">Note for Organizers <span class="label-optional">(Optional)</span></label>
+            <textarea id="cm-note" rows="3" placeholder="Your specialization, experience, or questions…"></textarea>
+          </div>
+          <button type="submit" class="button button-counselor button-block" id="cm-btn-submit">Submit
+            Application</button>
+        </div>
+        <div class="form-view text-center" id="cm-view-success">
+          <div class="success-icon counselor-success-icon">✓</div>
+          <h3>Application Received!</h3>
+          <p>We'll reach out to you within 48 hours to complete onboarding.</p>
+        </div>
+      </form>
     </div>
   </div>
 

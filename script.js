@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('nbtCareerFormState', JSON.stringify(dataObj));
   };
 
-  const loadFormState = () => {
+  let loadFormState = () => {
     const saved = localStorage.getItem('nbtCareerFormState');
     if (saved) {
       try {
@@ -481,6 +481,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') {
       exitPopup.classList.remove('show');
       partnerModal.classList.remove('show');
+      // Also close counselor modal if open
+      const cModal = document.getElementById('counselorModal');
+      if (cModal) {
+        cModal.classList.remove('show');
+      }
       document.body.classList.remove('modal-open');
     }
   });
@@ -591,6 +596,250 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!valid) return;
     pSwitchView(pViewDetails, pViewSuccess);
+  });
+
+  /* ========================================================
+     8. Hero Carousel
+     ======================================================== */
+  const heroTrack     = document.getElementById('heroCarouselTrack');
+  const heroSlides    = document.querySelectorAll('.hero-slide');
+  const audiencePills = document.querySelectorAll('.audience-pill');
+  const heroDots      = document.querySelectorAll('.hero-dot');
+
+  let currentSlide    = 0;
+  let carouselTimer   = null;
+
+  const goToSlide = (idx) => {
+    // Deactivate all
+    heroSlides.forEach(s => s.classList.remove('active'));
+    audiencePills.forEach(p => p.classList.remove('active'));
+    heroDots.forEach(d => d.classList.remove('active'));
+
+    // Activate target
+    heroSlides[idx].classList.add('active');
+    audiencePills[idx].classList.add('active');
+    heroDots[idx].classList.add('active');
+
+    // Update dot color based on slide
+    heroDots.forEach((d, i) => {
+      d.style.background = '';
+    });
+    const dotColors = ['#0055ff', '#7c3aed', '#0f766e'];
+    heroDots[idx].style.background = dotColors[idx];
+
+    currentSlide = idx;
+  };
+
+  const startAutoAdvance = () => {
+    clearInterval(carouselTimer);
+    carouselTimer = setInterval(() => {
+      goToSlide((currentSlide + 1) % 3);
+    }, 6000);
+  };
+
+  const stopAutoAdvance = () => {
+    clearInterval(carouselTimer);
+  };
+
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    heroSection.addEventListener('mouseenter', stopAutoAdvance);
+    heroSection.addEventListener('mouseleave', startAutoAdvance);
+    heroSection.addEventListener('touchstart', stopAutoAdvance, { passive: true });
+    heroSection.addEventListener('touchend', startAutoAdvance, { passive: true });
+  }
+
+  // Wire pills
+  audiencePills.forEach((pill, idx) => {
+    pill.addEventListener('click', () => {
+      goToSlide(idx);
+      startAutoAdvance(); // Reset timer on manual click
+    });
+  });
+
+  // Wire dots
+  heroDots.forEach((dot, idx) => {
+    dot.addEventListener('click', () => {
+      goToSlide(idx);
+      startAutoAdvance();
+    });
+  });
+
+  // Initialize
+  goToSlide(0);
+  startAutoAdvance();
+
+  // If URL has #counselor-section, jump to counselor slide
+  if (window.location.hash === '#counselor-section') {
+    goToSlide(1);
+  }
+
+
+  /* ========================================================
+     10. Counselor Modal
+     ======================================================== */
+  const counselorModal      = document.getElementById('counselorModal');
+  const counselorModalClose = document.getElementById('counselorModalClose');
+  const counselorModalForm  = document.getElementById('counselorModalForm');
+
+  const cmViewPhone   = document.getElementById('cm-view-phone');
+  const cmViewOtp     = document.getElementById('cm-view-otp');
+  const cmViewDetails = document.getElementById('cm-view-details');
+  const cmViewSuccess = document.getElementById('cm-view-success');
+
+  const cmPhone       = document.getElementById('cm-phone');
+  const cmOtp         = document.getElementById('cm-otp');
+  const cmDisplayPhone= document.getElementById('cm-display-phone');
+  const cmEditPhone   = document.getElementById('cm-edit-phone');
+  const cmName        = document.getElementById('cm-name');
+  const cmEmail       = document.getElementById('cm-email');
+  const cmCity        = document.getElementById('cm-city');
+
+  const cmBtnSendOtp  = document.getElementById('cm-btn-send-otp');
+  const cmBtnVerifyOtp= document.getElementById('cm-btn-verify-otp');
+
+  const cmSwitchView = (from, to) => {
+    from.classList.remove('active-view');
+    to.classList.add('active-view');
+  };
+
+  const openCounselorModal = (e) => {
+    if (e) e.preventDefault();
+    [cmViewOtp, cmViewDetails, cmViewSuccess].forEach(v => v.classList.remove('active-view'));
+    cmViewPhone.classList.add('active-view');
+    counselorModalForm.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
+    counselorModalForm.querySelectorAll('input, textarea, select').forEach(i => { if (i.tagName === 'SELECT') i.selectedIndex = 0; else i.value = ''; });
+    counselorModal.classList.add('show');
+    document.body.classList.add('modal-open');
+    cmPhone.focus();
+  };
+
+  const closeCounselorModal = () => {
+    counselorModal.classList.remove('show');
+    document.body.classList.remove('modal-open');
+  };
+
+  // Wire all counselor CTA triggers
+  document.querySelectorAll('.js-open-counselor-modal').forEach(el => {
+    el.addEventListener('click', openCounselorModal);
+  });
+
+  if (counselorModalClose) counselorModalClose.addEventListener('click', closeCounselorModal);
+
+  if (counselorModal) {
+    counselorModal.addEventListener('click', (e) => {
+      if (e.target === counselorModal) closeCounselorModal();
+    });
+  }
+
+  if (cmBtnSendOtp) {
+    cmBtnSendOtp.addEventListener('click', () => {
+      const val = cmPhone.value.trim();
+      const grp = cmPhone.closest('.form-group');
+      if (!/^[0-9]{10}$/.test(val)) { grp.classList.add('has-error'); return; }
+      grp.classList.remove('has-error');
+      cmDisplayPhone.textContent = '+91 ' + val;
+      cmSwitchView(cmViewPhone, cmViewOtp);
+      cmOtp.focus();
+    });
+  }
+
+  if (cmEditPhone) {
+    cmEditPhone.addEventListener('click', (e) => {
+      e.preventDefault();
+      cmSwitchView(cmViewOtp, cmViewPhone);
+      cmPhone.focus();
+    });
+  }
+
+  if (cmBtnVerifyOtp) {
+    cmBtnVerifyOtp.addEventListener('click', () => {
+      const val = cmOtp.value.trim();
+      const grp = cmOtp.closest('.form-group');
+      if (!/^[0-9]{4}$/.test(val)) { grp.classList.add('has-error'); return; }
+      grp.classList.remove('has-error');
+      cmSwitchView(cmViewOtp, cmViewDetails);
+      cmName.focus();
+    });
+  }
+
+  if (counselorModalForm) {
+    counselorModalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      [[cmName,  v => v.length > 0],
+       [cmEmail, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
+       [cmCity,  v => v.length > 0]
+      ].forEach(([input, test]) => {
+        const grp = input.closest('.form-group');
+        if (!test(input.value.trim())) {
+          grp.classList.add('has-error');
+          valid = false;
+        } else {
+          grp.classList.remove('has-error');
+        }
+      });
+
+      if (!valid) return;
+      cmSwitchView(cmViewDetails, cmViewSuccess);
+    });
+  }
+
+  /* ========================================================
+     11. Mobile Navigation
+     ======================================================== */
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  const openMobileNavBtns = document.querySelectorAll('.js-open-mobile-nav');
+  const closeMobileNavBtns = document.querySelectorAll('.js-close-mobile-nav');
+  const hamburgerBtn = document.querySelector('.hamburger-btn');
+
+  const openMobileNav = () => {
+    mobileNavDrawer.classList.add('open');
+    if(hamburgerBtn) hamburgerBtn.classList.add('open');
+    document.body.classList.add('modal-open'); // reuse to prevent scrolling
+  };
+
+  const closeMobileNav = () => {
+    mobileNavDrawer.classList.remove('open');
+    if(hamburgerBtn) hamburgerBtn.classList.remove('open');
+    // Only remove modal-open if no other modals are open
+    if (!document.querySelector('.partner-modal-overlay.show') && 
+        !document.querySelector('.counselor-modal-overlay.show') &&
+        !document.querySelector('.exit-popup.show')) {
+      document.body.classList.remove('modal-open');
+    }
+  };
+
+  openMobileNavBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Toggle logic for hamburger
+      if (hamburgerBtn && btn === hamburgerBtn && mobileNavDrawer.classList.contains('open')) {
+        closeMobileNav();
+      } else {
+        openMobileNav();
+      }
+    });
+  });
+
+  closeMobileNavBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeMobileNav();
+    });
+  });
+
+  if (mobileNavDrawer) {
+    mobileNavDrawer.addEventListener('click', (e) => {
+      if (e.target === mobileNavDrawer) closeMobileNav();
+    });
+  }
+
+  // Close mobile nav on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileNavDrawer && mobileNavDrawer.classList.contains('open')) {
+      closeMobileNav();
+    }
   });
 
 });
