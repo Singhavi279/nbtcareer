@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* ========================================================
+     0. Utility — Focus Trap
+     ======================================================== */
+  const focusTrapSelectors = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+  const trapFocus = (container) => {
+    const focusable = Array.from(container.querySelectorAll(focusTrapSelectors));
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    container.addEventListener('keydown', function handler(e) {
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+      container._trapHandler = handler;
+    });
+  };
+
+  const releaseFocusTrap = (container) => {
+    if (container._trapHandler) {
+      container.removeEventListener('keydown', container._trapHandler);
+      delete container._trapHandler;
+    }
+  };
   /* ========================================================
      1. Scroll Reveal Animations (Intersection Observer)
      ======================================================== */
@@ -102,10 +129,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnEditPhone = document.getElementById('edit-phone');
   const form = document.getElementById('heroRegistrationForm');
 
-  // Helper to standard view change
+  // Maps view id → step number for the step indicator
+  const viewStepMap = { 'view-mobile': 1, 'view-otp': 2, 'view-details': 3, 'view-success': 4 };
+
+  const updateStepIndicator = (stepNum) => {
+    document.querySelectorAll('.form-step').forEach((el, i) => {
+      const s = i + 1;
+      el.classList.toggle('active', s === stepNum);
+      el.classList.toggle('done', s < stepNum);
+    });
+  };
+
   const switchView = (fromView, toView) => {
     fromView.classList.remove('active-view');
     toView.classList.add('active-view');
+    const step = viewStepMap[toView.id];
+    if (step) updateStepIndicator(step);
   };
 
   btnSendOtp.addEventListener('click', () => {
@@ -151,29 +190,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const checkedPass = document.querySelector('input[name="pass_type"]:checked');
     const isPaid = checkedPass && checkedPass.value === 'paid';
-    
+
     if (isPaid) {
+      // Validate date selection
+      if (!regDatesInput.value) {
+        dateSelectionGroup.classList.add('has-error');
+        dateSelectionGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      // Validate terms
       const termsCheckbox = document.getElementById('reg-terms-checkbox');
       if (termsCheckbox && !termsCheckbox.checked) {
-        alert("Please acknowledge the booking terms & conditions to proceed.");
+        termsCheckbox.focus();
+        termsCheckbox.closest('.terms-acknowledgement').scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
     }
 
     const successMessageEl = document.getElementById('success-pass-message');
     if (successMessageEl) {
-      if (isPaid) {
-        successMessageEl.textContent = 'We will send your entry pass via email and WhatsApp shortly.';
-      } else {
-        successMessageEl.textContent = 'We will send your entry pass via email shortly.';
-      }
+      successMessageEl.textContent = isPaid
+        ? 'We will send your entry pass via email and WhatsApp shortly.'
+        : 'We will send your entry pass via email shortly.';
     }
 
-    // Minimal HTML5 validness check done by browser form if submit event fires,
-    // assuming valid. Let's move to success view.
     switchView(viewDetails, viewSuccess);
-
-    // Clear local storage upon successful submission
     localStorage.removeItem('nbtCareerFormState');
   });
 
@@ -305,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       } catch (e) {
-        console.error('Error loading form state', e);
+        // ignore malformed saved state
       }
     }
   };
@@ -418,18 +459,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  form.addEventListener('submit', (e) => {
-    const checkedPass = document.querySelector('input[name="pass_type"]:checked');
-    if (checkedPass && checkedPass.value === 'paid') {
-      if (!regDatesInput.value) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        dateSelectionGroup.classList.add('has-error');
-        dateSelectionGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-    }
-  });
 
   /* ========================================================
      5. Form Conditional Fields
@@ -519,9 +548,10 @@ document.addEventListener('DOMContentLoaded', () => {
     to.classList.add('active-view');
   };
 
+  let partnerModalTrigger = null;
+
   const openPartnerModal = (e) => {
-    if (e) e.preventDefault();
-    // Reset to first step each time
+    if (e) { e.preventDefault(); partnerModalTrigger = e.currentTarget; }
     [pViewOtp, pViewDetails, pViewSuccess].forEach(v => v.classList.remove('active-view'));
     pViewPhone.classList.add('active-view');
     partnerForm.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
@@ -529,11 +559,14 @@ document.addEventListener('DOMContentLoaded', () => {
     partnerModal.classList.add('show');
     document.body.classList.add('modal-open');
     pPhone.focus();
+    trapFocus(partnerModal.querySelector('.partner-modal-card'));
   };
 
   const closePartnerModal = () => {
     partnerModal.classList.remove('show');
     document.body.classList.remove('modal-open');
+    releaseFocusTrap(partnerModal.querySelector('.partner-modal-card'));
+    if (partnerModalTrigger) { partnerModalTrigger.focus(); partnerModalTrigger = null; }
   };
 
   // Wire all partner CTA triggers
@@ -703,8 +736,10 @@ document.addEventListener('DOMContentLoaded', () => {
     to.classList.add('active-view');
   };
 
+  let counselorModalTrigger = null;
+
   const openCounselorModal = (e) => {
-    if (e) e.preventDefault();
+    if (e) { e.preventDefault(); counselorModalTrigger = e.currentTarget; }
     [cmViewOtp, cmViewDetails, cmViewSuccess].forEach(v => v.classList.remove('active-view'));
     cmViewPhone.classList.add('active-view');
     counselorModalForm.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
@@ -712,11 +747,14 @@ document.addEventListener('DOMContentLoaded', () => {
     counselorModal.classList.add('show');
     document.body.classList.add('modal-open');
     cmPhone.focus();
+    trapFocus(counselorModal.querySelector('.partner-modal-card'));
   };
 
   const closeCounselorModal = () => {
     counselorModal.classList.remove('show');
     document.body.classList.remove('modal-open');
+    releaseFocusTrap(counselorModal.querySelector('.partner-modal-card'));
+    if (counselorModalTrigger) { counselorModalTrigger.focus(); counselorModalTrigger = null; }
   };
 
   // Wire all counselor CTA triggers
@@ -796,17 +834,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const openMobileNav = () => {
     mobileNavDrawer.classList.add('open');
-    if(hamburgerBtn) hamburgerBtn.classList.add('open');
-    document.body.classList.add('modal-open'); // reuse to prevent scrolling
+    if (hamburgerBtn) { hamburgerBtn.classList.add('open'); hamburgerBtn.setAttribute('aria-expanded', 'true'); }
+    document.body.classList.add('modal-open');
+    const panel = mobileNavDrawer.querySelector('.mobile-nav-panel');
+    if (panel) { panel.focus(); trapFocus(mobileNavDrawer); }
   };
 
   const closeMobileNav = () => {
     mobileNavDrawer.classList.remove('open');
-    if(hamburgerBtn) hamburgerBtn.classList.remove('open');
-    // Only remove modal-open if no other modals are open
-    if (!document.querySelector('.partner-modal-overlay.show') && 
-        !document.querySelector('.counselor-modal-overlay.show') &&
-        !document.querySelector('.exit-popup.show')) {
+    if (hamburgerBtn) { hamburgerBtn.classList.remove('open'); hamburgerBtn.setAttribute('aria-expanded', 'false'); }
+    releaseFocusTrap(mobileNavDrawer);
+    if (!document.querySelector('.partner-modal-overlay.show') &&
+        !document.querySelector('.counselor-modal-overlay.show')) {
       document.body.classList.remove('modal-open');
     }
   };

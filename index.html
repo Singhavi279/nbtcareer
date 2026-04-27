@@ -19,6 +19,9 @@
 
 <body class="light-mode">
 
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
   <!-- Site Header -->
   <header class="site-header glass-nav">
     <div class="top-notice-banner">Secure your early bird seat (Free till 15th May only)</div>
@@ -36,12 +39,12 @@
       </nav>
       <div class="header-actions">
         <a class="button button-primary header-cta" href="#registration-form-container">For Student</a>
-        <a class="button button-ghost-counselor js-open-counselor-modal" href="#">For Counsellor</a>
-        <a class="button button-outline header-cta-partner js-open-partner-modal" href="#">For Partner</a>
+        <button class="button button-ghost-counselor js-open-counselor-modal" type="button">For Counsellor</button>
+        <button class="button button-outline header-cta-partner js-open-partner-modal" type="button">For Partner</button>
       </div>
 
       <!-- Mobile Hamburger Button -->
-      <button class="hamburger-btn js-open-mobile-nav" aria-label="Open mobile menu">
+      <button class="hamburger-btn js-open-mobile-nav" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobileNavDrawer">
         <span></span>
         <span></span>
         <span></span>
@@ -50,8 +53,8 @@
   </header>
 
   <!-- Mobile Nav Drawer -->
-  <div class="mobile-nav-drawer" id="mobileNavDrawer">
-    <div class="mobile-nav-panel">
+  <div class="mobile-nav-drawer" id="mobileNavDrawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <div class="mobile-nav-panel" tabindex="-1">
       <button class="mobile-nav-close js-close-mobile-nav" aria-label="Close menu">&times;</button>
       <div class="mobile-nav-links">
         <a href="#event-snapshot" class="js-close-mobile-nav">Overview</a>
@@ -64,13 +67,13 @@
       </div>
       <div class="mobile-nav-ctas">
         <a href="#registration-form-container" class="button button-primary js-close-mobile-nav">For Student</a>
-        <a href="#" class="button button-counselor js-open-counselor-modal">For Counsellor</a>
-        <a href="#" class="button button-outline js-open-partner-modal">For Partner</a>
+        <button type="button" class="button button-counselor js-open-counselor-modal">For Counsellor</button>
+        <button type="button" class="button button-outline js-open-partner-modal">For Partner</button>
       </div>
     </div>
   </div>
 
-  <main>
+  <main id="main-content">
     <!-- ═══════════════════════════════════════════════════════════
          HERO CAROUSEL — 3 slides: Student · Counselor · Partner
          ═══════════════════════════════════════════════════════════ -->
@@ -148,7 +151,7 @@
               <div class="hero-copy-card hero-copy-card--counselor">
                 <span class="slide-badge slide-badge--counselor">📢 Join as Counsellor</span>
                 <div class="hero-copy-main">
-                  <p class="hero-brand-mark" style="color:#7c3aed;">Become a</p>
+                  <p class="hero-brand-mark color-counselor">Become a</p>
                   <h1 class="counselor-h1">Times Career<br>Counsellor 2026</h1>
                   <p class="hero-subheadline counselor-subheadline">
                     Share your expertise with students across 8 cities. Conduct 1-on-1 sessions, build your
@@ -161,8 +164,7 @@
                     <div class="counselor-perk"><span>📣</span> PR coverage</div>
                   </div>
                   <div class="hero-copy-actions">
-                    <a href="#" class="button button-counselor hero-main-cta js-open-counselor-modal">For
-                      Counsellors</a>
+                    <button type="button" class="button button-counselor hero-main-cta js-open-counselor-modal">For Counsellors</button>
                     <span class="seats-tag">Limited spots — apply early</span>
                   </div>
                 </div>
@@ -184,7 +186,7 @@
               <div class="hero-copy-card hero-copy-card--partner">
                 <span class="slide-badge slide-badge--partner">🏛️ Colleges &amp; Brands</span>
                 <div class="hero-copy-main">
-                  <p class="hero-brand-mark" style="color:#0f766e;">Partner with</p>
+                  <p class="hero-brand-mark color-partner">Partner with</p>
                   <h1 class="partner-h1">Times Career<br>Counselling 2026</h1>
                   <p class="hero-subheadline">
                     Reach decision-stage students and parents across 8 major cities.
@@ -197,7 +199,7 @@
                     <div class="partner-highlight"><span>📣</span> PR &amp; media exposure</div>
                   </div>
                   <div class="hero-copy-actions">
-                    <a href="#" class="button button-partner hero-main-cta js-open-partner-modal">For Partner</a>
+                    <button type="button" class="button button-partner hero-main-cta js-open-partner-modal">For Partner</button>
                     <span class="seats-tag">Limited booths — inquire now</span>
                   </div>
                 </div>
@@ -347,30 +349,37 @@
                 <h3>Secure Your Pass</h3>
                 <p>Secure your early bird seat (Free till 15th May only)</p>
               </div>
-              <form id="heroRegistrationForm" class="flat-flow-form premium-flow-form" novalidate>
-                <div class="form-view active-view" id="view-mobile">
+              <div class="form-step-indicator" aria-hidden="true">
+                <span class="form-step active" data-step="1">1</span>
+                <span class="form-step-line"></span>
+                <span class="form-step" data-step="2">2</span>
+                <span class="form-step-line"></span>
+                <span class="form-step" data-step="3">3</span>
+                <span class="form-step-line"></span>
+                <span class="form-step" data-step="4">✓</span>
+              </div>
+
+              <form id="heroRegistrationForm" class="flat-flow-form premium-flow-form" novalidate aria-live="polite" aria-atomic="false">
+                <div class="form-view active-view" id="view-mobile" role="group" aria-label="Step 1: Enter phone number">
                   <div class="form-group">
                     <label for="reg-phone">Verify your contact number</label>
-                    <input type="tel" id="reg-phone" placeholder="Enter 10-digit number" required pattern="[0-9]{10}">
-                    <span class="error-msg">Please enter a valid 10-digit number.</span>
+                    <input type="tel" id="reg-phone" placeholder="Enter 10-digit number" required pattern="[0-9]{10}" aria-describedby="reg-phone-error">
+                    <span class="error-msg" id="reg-phone-error" role="alert">Please enter a valid 10-digit number.</span>
                   </div>
                   <button type="button" class="button button-primary button-block" id="btn-send-otp">Continue</button>
                 </div>
 
-                <div class="form-view" id="view-otp">
+                <div class="form-view" id="view-otp" role="group" aria-label="Step 2: Verify OTP">
                   <div class="form-group">
                     <label for="reg-otp">Enter OTP</label>
-                    <p class="meta-label">OTP sent to <span id="display-phone"></span> <a href="#"
-                        id="edit-phone">Edit</a>
-                    </p>
-                    <input type="text" id="reg-otp" placeholder="4-digit code" required pattern="[0-9]{4}">
-                    <span class="error-msg">Invalid OTP. Enter 1234.</span>
+                    <p class="meta-label">OTP sent to <span id="display-phone"></span> <button type="button" class="btn-link" id="edit-phone">Edit</button></p>
+                    <input type="text" id="reg-otp" placeholder="4-digit code" required pattern="[0-9]{4}" inputmode="numeric" maxlength="4" aria-describedby="reg-otp-error">
+                    <span class="error-msg" id="reg-otp-error" role="alert">Invalid OTP. Please try again.</span>
                   </div>
-                  <button type="button" class="button button-primary button-block" id="btn-verify-otp">Verify &
-                    Proceed</button>
+                  <button type="button" class="button button-primary button-block" id="btn-verify-otp">Verify &amp; Proceed</button>
                 </div>
 
-                <div class="form-view" id="view-details">
+                <div class="form-view" id="view-details" role="group" aria-label="Step 3: Registration details">
                   <div class="form-group">
                     <label for="reg-name">Full Name</label>
                     <input type="text" id="reg-name" placeholder="E.g., Anjali Sharma" required>
@@ -403,7 +412,7 @@
                         <option value="Science">Science</option>
                         <option value="Commerce">Commerce</option>
                         <option value="Humanities">Humanities</option>
-                        <option value="Humanities">Others</option>
+                        <option value="Others">Others</option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -459,9 +468,8 @@
                     <span class="error-msg">Please select at least one date.</span>
                   </div>
 
-                  <div class="form-group" id="loan-assistance-group">
-                    <label>Are you looking for education loan assistance to study abroad? <span
-                        class="required">*</span></label>
+                  <fieldset class="form-group" id="loan-assistance-group">
+                    <legend>Are you looking for education loan assistance to study abroad? <span class="required" aria-hidden="true">*</span><span class="sr-only">(required)</span></legend>
                     <div class="radio-toggle-group">
                       <label class="radio-toggle">
                         <input type="radio" name="reg-loan" value="Yes" required>
@@ -472,7 +480,7 @@
                         <span>No</span>
                       </label>
                     </div>
-                  </div>
+                  </fieldset>
 
                   <div class="form-group" id="time-slot-group">
                     <label for="reg-time-slot">Preferred Time Slot</label>
@@ -484,8 +492,8 @@
                   </div>
 
                   <!-- PASS SELECTION -->
-                  <div class="pass-selection-container">
-                    <label class="pass-selection-label">Choose Your Pass</label>
+                  <fieldset class="pass-selection-container">
+                    <legend class="pass-selection-label">Choose Your Pass</legend>
                     <div class="pass-options-grid">
                       <label class="pass-option-card">
                         <input type="radio" name="pass_type" value="free" class="hidden-radio">
@@ -531,13 +539,11 @@
                         </div>
                       </label>
                     </div>
-                  </div>
+                  </fieldset>
                   <div class="terms-acknowledgement" id="terms-acknowledgement-wrapper">
                     <label class="terms-checkbox-label">
                       <input type="checkbox" id="reg-terms-checkbox" name="terms_agreed" required>
-                      <span class="terms-text">I acknowledge the <span id="toggle-terms-details"
-                          style="text-decoration: underline; color: #0055ff; cursor: pointer;">booking terms &
-                          conditions</span>.</span>
+                      <span class="terms-text">I acknowledge the <button type="button" id="toggle-terms-details" class="btn-link">booking terms &amp; conditions</button>.</span>
                     </label>
                     <div class="terms-details-accordion" id="terms-accordion-content" style="display: none;">
                       <ul class="terms-list">
@@ -553,13 +559,11 @@
                     Register</button>
                 </div>
 
-                <div class="form-view text-center" id="view-success">
-                  <div class="success-icon">✓</div>
+                <div class="form-view text-center" id="view-success" role="status" aria-live="polite" aria-label="Step 4: Registration complete">
+                  <div class="success-icon" aria-hidden="true">✓</div>
                   <h3>Registration Complete!</h3>
                   <p id="success-pass-message">We will send your entry pass shortly.</p>
-                  <p class="success-rebook-msg"
-                    style="font-size: 0.9rem; color: #64748b; margin-top: 1rem; border-top: 1px dashed rgba(15, 23, 42, 0.1); padding-top: 1rem;">
-                    If you wish to attend multiple sessions, you can easily rebook for additional slots.</p>
+                  <p class="success-rebook-msg">If you wish to attend multiple sessions, you can easily rebook for additional slots.</p>
                 </div>
               </form>
             </div>
@@ -568,8 +572,7 @@
       </div>
     </section>
 
-    <section class="section tracks-section reveal-on-scroll" id="tracks"
-      style="background: radial-gradient(circle at top, rgba(0, 85, 255, 0.08) 0%, transparent 60%), var(--color-bg); border-top: 1px dashed rgba(0, 85, 255, 0.1);">
+    <section class="section tracks-section reveal-on-scroll section--tracks" id="tracks">
       <div class="container">
         <div class="section-heading text-center">
           <h2>What we talk about</h2>
@@ -635,15 +638,11 @@
     </section>
 
     <!-- Distinct Section: Is this for you? -->
-    <section class="section who-section reveal-on-scroll" id="who"
-      style="background: linear-gradient(180deg, #0a0f1c 0%, #020617 100%); position: relative; border-top: 1px solid rgba(255,255,255,0.03);">
-      <div class="container relative" style="z-index: 2;">
-        <div class="section-heading text-center" style="margin-bottom: 3.5rem;">
-          <h2
-            style="background: linear-gradient(to right, #60a5fa, #3b82f6); -webkit-background-clip: text; color: transparent;">
-            Is this for you?</h2>
-          <p style="margin-top: 0.5rem; color: #94a3b8; font-size: 1.1rem;">A tailored journey designed for multiple
-            career stages</p>
+    <section class="section who-section reveal-on-scroll section--who" id="who">
+      <div class="container section--who__inner">
+        <div class="section-heading text-center section-heading--spaced">
+          <h2 class="heading-gradient-blue">Is this for you?</h2>
+          <p class="section-subtext--light">A tailored journey designed for multiple career stages</p>
         </div>
         <div class="who-join-grid">
           <article class="who-item who-item-square"><span class="who-square-icon">🎓</span><span>Class 12 students
@@ -669,8 +668,7 @@
     </section>
 
     <!-- B2B Segregation: Dark Glass Container -->
-    <section class="section partner-section reveal-on-scroll" id="partners"
-      style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+    <section class="section partner-section reveal-on-scroll section--partners" id="partners">
       <div class="container">
         <div class="partner-head">
           <h2>Reach families<br><span class="partner-head-accent">ready to lock career choices</span>
@@ -703,7 +701,7 @@
           </article>
         </div>
         <div class="partner-cta">
-          <a href="#" class="button button-primary js-open-partner-modal">Partner Now</a>
+          <button type="button" class="button button-primary js-open-partner-modal">Partner Now</button>
         </div>
       </div>
     </section>
@@ -714,15 +712,12 @@
       <div class="container section-narrow">
         <div class="section-heading text-center">
           <h2>Got Questions?</h2>
-          <p style="margin-top: 0.5rem; color: #64748b; font-size: 1.1rem;">Everything you need to know about passes,
-            slots, and conditions</p>
+          <p class="section-subtext">Everything you need to know about passes, slots, and conditions</p>
         </div>
 
         <div class="faq-accordion">
 
-          <h3 class="faq-category-title"
-            style="margin: 2rem 0 1rem; font-size: 1.05rem; color: #0055ff; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
-            Passes & Registration</h3>
+          <h3 class="faq-category-title">Passes &amp; Registration</h3>
 
           <details class="glass-accordion" name="faq">
             <summary>What is the difference between the Free Visitor Pass and the Counselling Pass?</summary>
@@ -762,9 +757,7 @@
             </div>
           </details>
 
-          <h3 class="faq-category-title"
-            style="margin: 2.5rem 0 1rem; font-size: 1.05rem; color: #0055ff; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">
-            Event Experience</h3>
+          <h3 class="faq-category-title faq-category-title--spaced">Event Experience</h3>
 
           <details class="glass-accordion" name="faq">
             <summary>When will I receive my pass?</summary>
@@ -800,8 +793,7 @@
   </main>
 
   <!-- Contact Section -->
-  <section id="contact" class="section reveal-on-scroll"
-    style="background: linear-gradient(to bottom, #ffffff, rgba(0, 85, 255, 0.05)); border-top: 1px solid rgba(0, 85, 255, 0.08);">
+  <section id="contact" class="section reveal-on-scroll section--contact">
     <div class="container">
       <div class="section-heading text-center">
         <span class="overline-badge light">Support & Inquiries</span>
@@ -892,16 +884,16 @@
     </div>
     <div class="sticky-actions">
       <a href="#registration-form-container" class="button button-primary sticky-btn">For Student</a>
-      <a href="#" class="button sticky-btn sticky-btn-counselor js-open-counselor-modal">For Counsellor</a>
-      <a href="#" class="button sticky-btn sticky-btn-secondary js-open-partner-modal">For Partner</a>
+      <button type="button" class="button sticky-btn sticky-btn-counselor js-open-counselor-modal">For Counsellor</button>
+      <button type="button" class="button sticky-btn sticky-btn-secondary js-open-partner-modal">For Partner</button>
     </div>
   </div>
 
   <!-- Exit Intent Popup -->
-  <div class="exit-intent-overlay " id="exitPopup">
-    <div class="glass-card exit-popup-card">
+  <div class="exit-intent-overlay" id="exitPopup" role="dialog" aria-modal="true" aria-labelledby="exit-popup-title">
+    <div class="glass-card exit-popup-card" tabindex="-1">
       <button class="close-popup" aria-label="Close popup">&times;</button>
-      <h2>Leaving so soon?</h2>
+      <h3 id="exit-popup-title">Leaving so soon?</h3>
       <p>Secure your spot before seats fill up in your city. It only takes a minute.</p>
       <a href="#registration-form-container" class="button button-primary button-block js-close-popup">Book Your
         Slot</a>
@@ -914,8 +906,7 @@
     <div class="partner-modal-card glass-card">
       <button class="close-popup partner-modal-close" id="counselorModalClose" aria-label="Close">&times;</button>
       <div class="partner-modal-header">
-        <span class="overline-badge" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;">Counsellor
-          Apply</span>
+        <span class="overline-badge overline-badge--counselor">Counsellor Apply</span>
         <h2 id="counselor-modal-title">Join as a Counsellor</h2>
         <p>Share your details and we'll onboard you within 48 hours.</p>
       </div>
@@ -931,10 +922,9 @@
         <div class="form-view" id="cm-view-otp">
           <div class="form-group">
             <label for="cm-otp">Enter OTP</label>
-            <p class="meta-label">OTP sent to <span id="cm-display-phone"></span> <a href="#"
-                id="cm-edit-phone">Edit</a></p>
-            <input type="text" id="cm-otp" placeholder="4-digit OTP" required pattern="[0-9]{4}">
-            <span class="error-msg">Invalid OTP. Please try again.</span>
+            <p class="meta-label">OTP sent to <span id="cm-display-phone"></span> <button type="button" class="btn-link" id="cm-edit-phone">Edit</button></p>
+            <input type="text" id="cm-otp" placeholder="4-digit OTP" required pattern="[0-9]{4}" inputmode="numeric" maxlength="4" aria-describedby="cm-otp-error">
+            <span class="error-msg" id="cm-otp-error" role="alert">Invalid OTP. Please try again.</span>
           </div>
           <button type="button" class="button button-counselor button-block" id="cm-btn-verify-otp">Verify &amp;
             Continue</button>
@@ -1008,10 +998,9 @@
         <div class="form-view" id="p-view-otp">
           <div class="form-group">
             <label for="p-otp">Enter OTP</label>
-            <p class="meta-label">OTP sent to <span id="p-display-phone"></span> <a href="#" id="p-edit-phone">Edit</a>
-            </p>
-            <input type="text" id="p-otp" placeholder="4-digit code" required pattern="[0-9]{4}">
-            <span class="error-msg">Invalid OTP. Please try again.</span>
+            <p class="meta-label">OTP sent to <span id="p-display-phone"></span> <button type="button" class="btn-link" id="p-edit-phone">Edit</button></p>
+            <input type="text" id="p-otp" placeholder="4-digit code" required pattern="[0-9]{4}" inputmode="numeric" maxlength="4" aria-describedby="p-otp-error">
+            <span class="error-msg" id="p-otp-error" role="alert">Invalid OTP. Please try again.</span>
           </div>
           <button type="button" class="button button-primary button-block" id="p-btn-verify-otp">Verify &amp;
             Continue</button>

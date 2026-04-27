@@ -158,9 +158,11 @@ p {
   border-radius: 99px;
   font-weight: 600;
   font-size: 1.05rem;
+  font-family: inherit;
   transition: var(--transition-smooth);
   cursor: pointer;
   border: none;
+  text-decoration: none;
 }
 
 .button-primary {
@@ -3297,4 +3299,283 @@ p {
   }
 }
 
+
+/* ═══════════════════════════════════════════════════════════
+   ACCESSIBILITY & UI/UX IMPROVEMENTS
+   ═══════════════════════════════════════════════════════════ */
+
+/* --- Skip Navigation --- */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 700;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-nav:focus {
+  top: 0;
+}
+
+/* --- Screen Reader Only --- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Focus Visible --- */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(0, 85, 255, 0.15);
+}
+
+.button-counselor:focus-visible {
+  outline-color: #7c3aed;
+  box-shadow: 0 0 0 6px rgba(124, 58, 237, 0.15);
+}
+
+.button-partner:focus-visible {
+  outline-color: #0f766e;
+  box-shadow: 0 0 0 6px rgba(15, 118, 110, 0.15);
+}
+
+.glass-accordion summary:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: -3px;
+  border-radius: var(--radius-md);
+}
+
+.date-card:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* --- Inline Button (looks like a link) --- */
+.btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.btn-link:hover {
+  color: var(--color-primary-hover);
+}
+.btn-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* --- Fieldset / Legend Resets --- */
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+fieldset legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 0.6rem;
+  font-size: inherit;
+  font-weight: 600;
+  color: var(--color-text-main);
+  line-height: 1.5;
+}
+fieldset legend + * {
+  clear: left;
+}
+
+/* pass-selection fieldset: reuse existing card styles */
+fieldset.pass-selection-container {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* loan fieldset: matches .form-group */
+fieldset.form-group legend {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  margin-bottom: 0.6rem;
+}
+
+/* --- Form Step Progress Indicator --- */
+.form-step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.form-step {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 85, 255, 0.08);
+  border: 2px solid rgba(0, 85, 255, 0.2);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.form-step.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 85, 255, 0.3);
+}
+
+.form-step.done {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.form-step-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(0, 85, 255, 0.15);
+  max-width: 48px;
+}
+
+/* --- Section Background Classes (replacing inline styles) --- */
+.section--tracks {
+  background:
+    radial-gradient(circle at top, rgba(0, 85, 255, 0.08) 0%, transparent 60%),
+    var(--color-bg, #f0f9ff);
+  border-top: 1px dashed rgba(0, 85, 255, 0.1);
+}
+
+.section--who {
+  background: linear-gradient(180deg, #0a0f1c 0%, #020617 100%);
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.section--who__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.section--partners {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.section--contact {
+  background: linear-gradient(to bottom, #ffffff, rgba(0, 85, 255, 0.05));
+  border-top: 1px solid rgba(0, 85, 255, 0.08);
+}
+
+/* --- Semantic Helper Classes --- */
+.section-heading--spaced {
+  margin-bottom: 3.5rem;
+}
+
+.heading-gradient-blue {
+  background: linear-gradient(to right, #60a5fa, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-subtext--light {
+  margin-top: 0.5rem;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.color-counselor { color: #7c3aed; }
+.color-partner   { color: #0f766e; }
+
+.overline-badge--counselor {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: white;
+}
+
+/* --- FAQ Category Title --- */
+.faq-category-title {
+  margin: 2rem 0 1rem;
+  font-size: 1.05rem;
+  color: #0055ff;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.faq-category-title--spaced {
+  margin-top: 2.5rem;
+}
+
+/* --- Success Rebook Message --- */
+.success-rebook-msg {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 1rem;
+  border-top: 1px dashed rgba(15, 23, 42, 0.1);
+  padding-top: 1rem;
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .slide-up {
+    opacity: 1;
+    animation: none;
+  }
+
+  .cloud-word {
+    animation: none;
+  }
+
+  .hero-counselor-img,
+  .hero-partner-img {
+    animation: none;
+  }
+}
 
